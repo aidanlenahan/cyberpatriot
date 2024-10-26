@@ -1,6 +1,3 @@
-This repository contains guides and scripts for both Windows and Linux. Scroll down for Linux image hardening.
-
-
 # Windows CyberPatriot Image Hardening
 
 This guide provides a step-by-step approach to hardening a Windows CyberPatriot image for security. Each step includes specific tasks and scripts aimed at improving the security posture of the system. Below is an overview of the steps, resources, and tasks involved.
