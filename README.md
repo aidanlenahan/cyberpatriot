@@ -1,11 +1,8 @@
-This repository contains guides and scripts for both Windows and Linux. Scroll down for Linux image hardening.
-
-
-# Windows CyberPatriot Image Hardening
+# Linux CyberPatriot Image Hardening
 
 This guide provides a step-by-step approach to hardening a Windows CyberPatriot image for security. Each step includes specific tasks and scripts aimed at improving the security posture of the system. Below is an overview of the steps, resources, and tasks involved.
 
-[Source Document](https://docs.google.com/document/d/e/2PACX-1vT2zjA8CaPWgSmMfjuAQXL91jd2ioXfFl3J_zvzhtXNg7lFbNFENRbakHlqrodOCvrJ8hJ_O5YRnCyt/pub)
+[Source Document](https://example.com)
 
 ---
 
@@ -17,7 +14,7 @@ This guide provides a step-by-step approach to hardening a Windows CyberPatriot 
 
 ---
 
-## [Step 1 - Initialization](https://raw.githubusercontent.com/aidanlenahan/dev/refs/heads/main/ps/cyberpatriot/masterbible24-25/windows/step1.ps1)
+## [Step 1 - Initialization](https://example.com)
 ### Tasks:
 1. **Set Script Execution Policy:**
    - Make `.ps1` scripts executable with the command:
@@ -42,7 +39,7 @@ This guide provides a step-by-step approach to hardening a Windows CyberPatriot 
 
 ---
 
-## [Step 3 - Basic Security](https://raw.githubusercontent.com/aidanlenahan/dev/refs/heads/main/ps/cyberpatriot/masterbible24-25/windows/step3.ps1)
+## [Step 3 - Basic Security](https://example.com)
 ### Tasks:
 1. **Enable Firewall:**
    - Ensure the firewall is turned on.
@@ -63,7 +60,7 @@ This guide provides a step-by-step approach to hardening a Windows CyberPatriot 
 
 ---
 
-## [Step 4 - Users and Groups](https://raw.githubusercontent.com/aidanlenahan/dev/refs/heads/main/ps/cyberpatriot/masterbible24-25/windows/step4.ps1)
+## [Step 4 - Users and Groups](https://example.com)
 ### Tasks:
 1. **Disable Unauthorized Users:**
    - Use **Computer Management** to disable any unauthorized users.
@@ -81,7 +78,7 @@ This guide provides a step-by-step approach to hardening a Windows CyberPatriot 
 
 ---
 
-## [Step 5 - Services](https://raw.githubusercontent.com/aidanlenahan/dev/refs/heads/main/ps/cyberpatriot/masterbible24-25/windows/step5.ps1)
+## [Step 5 - Services](https://example.com)
 ### Tasks:
 - **Disable Unnecessary Services:** Disable the following services:
   - Remote Registry
@@ -95,7 +92,7 @@ This guide provides a step-by-step approach to hardening a Windows CyberPatriot 
 
 ---
 
-## [Step 6 - Miscellaneous](https://raw.githubusercontent.com/aidanlenahan/dev/refs/heads/main/ps/cyberpatriot/masterbible24-25/windows/step6.ps1)
+## [Step 6 - Miscellaneous](https://example.com)
 ### Tasks:
 1. **Disable All RDP (Remote Desktop Protocol):**
    - Ensure RDP is disabled to prevent remote access vulnerabilities.
