@@ -14,6 +14,21 @@ This Windows guide is written in Powershell. The extended version can be found [
 4. Users and Groups
 5. Services
 6. Miscellaneous
+7. Points Hunting
+
+---
+
+## Linux Guide
+This Linux guide is written in Bash. The extended version can be found [here](https://github.com/aidanlenahan/cyberpatriot/tree/linux).
+
+0. Initial Setup
+1. Inintialization
+2. Forensics
+3. Basic Security
+4. Users and Groups
+5. Services
+6. Miscellaneous
+7. Points Hunting
 
 ---
 
