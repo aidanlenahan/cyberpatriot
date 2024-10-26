@@ -1,4 +1,3 @@
-# Cyberpatriot
 This repository contains guides and scripts for both Windows and Linux. Scroll down for Linux image hardening.
 
 
