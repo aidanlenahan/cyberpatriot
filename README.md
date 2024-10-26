@@ -6,7 +6,7 @@ These guides provide a step-by-step approach to hardening a CyberPatriot image f
 
 ## Windows Guide
 This Windows guide is written in Powershell. The extended version can be found [here](https://github.com/aidanlenahan/cyberpatriot/tree/windows).
-   ---
+
 0. Initial Setup
 1. Initialization
 2. Forensics
