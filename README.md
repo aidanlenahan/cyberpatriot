@@ -1,5 +1,3 @@
-# CyberPatriot Image Hardening
-
 These guides provide a step-by-step approach to hardening a CyberPatriot image for security. Each step includes specific tasks and scripts aimed at improving the security posture of the system.
 
 ---
