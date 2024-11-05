@@ -13,13 +13,13 @@ smbclient -L localhost -N >> "$diagnostics_file" 2>&1
 echo -e "\n" >> "$diagnostics_file"
 echo "File shares listed in diagnostics." >> "$diagnostics_file"
 
-# Section 2: List of Media Files in /home
-echo "Listing all media files in /home recursively..." >> "$diagnostics_file"
-echo "=== Media Files in /home ===" >> "$diagnostics_file"
-find /home -type f \( -iname "*.mp3" -o -iname "*.mp4" -o -iname "*.mov" -o -iname "*.wav" -o -iname "*.aac" \
+# Section 2: List of Media Files in /home excluding /snap
+echo "Listing all media files in /home (excluding /snap) recursively..." >> "$diagnostics_file"
+echo "=== Media Files in /home (excluding /snap) ===" >> "$diagnostics_file"
+find /home -path "/home/$(whoami)/snap" -prune -o -type f \( -iname "*.mp3" -o -iname "*.mp4" -o -iname "*.mov" -o -iname "*.wav" -o -iname "*.aac" \
   -o -iname "*.flac" -o -iname "*.mkv" -o -iname "*.png" -o -iname "*.jpeg" -o -iname "*.jpg" \
   -o -iname "*.gif" -o -iname "*.tiff" -o -iname "*.bmp" -o -iname "*.pdf" -o -iname "*.doc" \
-  -o -iname "*.docx" -o -iname "*.exe" -o -iname "*.msi" -o -iname "*.cmd" \) >> "$diagnostics_file"
+  -o -iname "*.docx" -o -iname "*.exe" -o -iname "*.msi" -o -iname "*.cmd" \) -print >> "$diagnostics_file"
 echo -e "\nMedia file list added to diagnostics." >> "$diagnostics_file"
 
 # Section 3: Detect "Bad" Applications
@@ -38,14 +38,15 @@ echo -e "\nApplication scan complete." >> "$diagnostics_file"
 # Section 4: Enable Daily Updates and Update Software
 echo "Enabling daily updates..." >> "$diagnostics_file"
 # Modify configuration file to set up daily updates
-echo 'APT::Periodic::Update-Package-Lists "1";' | sudo tee /etc/apt/apt.conf.d/20auto-upgrades
-echo 'APT::Periodic::Unattended-Upgrade "1";' | sudo tee -a /etc/apt/apt.conf.d/20auto-upgrades
+echo 'APT::Periodic::Update-Package-Lists "1";' | sudo tee /etc/apt/apt.conf.d/20auto-upgrades > /dev/null
+echo 'APT::Periodic::Unattended-Upgrade "1";' | sudo tee -a /etc/apt/apt.conf.d/20auto-upgrades > /dev/null
 echo "Daily updates enabled." >> "$diagnostics_file"
 
-# Perform software update
-echo "Updating software..." >> "$diagnostics_file"
-sudo apt update && sudo apt upgrade -y >> "$diagnostics_file" 2>&1
-echo "Software update completed." >> "$diagnostics_file"
+# Perform software update with output to both terminal and diagnostics file
+echo "Updating software..." | tee -a "$diagnostics_file"
+sudo apt update | tee -a "$diagnostics_file"
+sudo apt upgrade -y | tee -a "$diagnostics_file"
+echo "Software update completed." | tee -a "$diagnostics_file"
 
 # Summary and Completion
 echo -e "\nDiagnostics script completed on $(date)." >> "$diagnostics_file"
