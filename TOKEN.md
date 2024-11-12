@@ -1,7 +1,7 @@
 # FINE-GRAINED ACCESS TOKEN
-Can be found at [https://github.com/aidanlenahan/cyberpatriot/blob/main/TOKEN](https://github.com/aidanlenahan/cyberpatriot/blob/main/TOKEN)
+Can be found [here](https://github.com/aidanlenahan/cyberpatriot/blob/main/TOKEN).
 
-## Read access to:
+## Read access to the following in [aidanlenahan/cyberpatriot](https://github.com/aidanlenahan/cyberpatriot):
 - Dependabot alerts
 - Actions
 - Actions variables
