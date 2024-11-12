@@ -1,5 +1,5 @@
 # FINE-GRAINED ACCESS TOKEN
-Can be found at (https://github.com/aidanlenahan/cyberpatriot/tree/main/TOKEN)[https://github.com/aidanlenahan/cyberpatriot/tree/main/TOKEN]
+Can be found at [https://github.com/aidanlenahan/cyberpatriot/blob/main/TOKEN](https://github.com/aidanlenahan/cyberpatriot/blob/main/TOKEN)
 
 ## Read access to:
 - Dependabot alerts
