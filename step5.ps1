@@ -1,12 +1,13 @@
-# This script completes step 4 of Windows in Cyberpatriot
+# This script completes step 5 of Windows in Cyberpatriot
 # https://docs.google.com/document/d/e/2PACX-1vT2zjA8CaPWgSmMfjuAQXL91jd2ioXfFl3J_zvzhtXNg7lFbNFENRbakHlqrodOCvrJ8hJ_O5YRnCyt/pub
 
 # Define the path for the diagnostics report
-$diagnosticsFile = "$PSScriptRoot\diagnostics4.txt"
+$diagnosticsFile = "$PSScriptRoot\diagnostics5.txt"
 
-# Start a new diagnostics file and add a header
-"--- Security Service Check Report ---" | Out-File -FilePath $diagnosticsFile -Encoding utf8
-"Generated on $(Get-Date)" | Out-File -FilePath $diagnosticsFile -Append
+# Append a new section header to the diagnostics file with the date and time
+"" | Out-File -FilePath $diagnosticsFile -Append
+"--- Security Service Check Report ---" | Out-File -FilePath $diagnosticsFile -Append
+"Generated on $(Get-Date -Format "MM/dd/yyyy HH:mm:ss")" | Out-File -FilePath $diagnosticsFile -Append
 "" | Out-File -FilePath $diagnosticsFile -Append
 
 # Define services to check with descriptions
@@ -26,9 +27,9 @@ foreach ($serviceName in $servicesToCheck.Keys) {
     $service = Get-Service -Name $serviceName -ErrorAction SilentlyContinue
     if ($service) {
         # Document service status
-        $statusMessage = "$serviceName ($($servicesToCheck[$serviceName)]) - Status: $($service.Status)"
+        $statusMessage = "$serviceName ($($servicesToCheck[$serviceName])) - Status: $($service.Status)"
         $statusMessage | Out-File -FilePath $diagnosticsFile -Append
-        
+
         # Disable service if it's running or set to start automatically
         if ($service.Status -ne 'Stopped' -or $service.StartType -eq 'Automatic') {
             Stop-Service -Name $serviceName -Force -ErrorAction SilentlyContinue
@@ -49,4 +50,4 @@ foreach ($serviceName in $servicesToCheck.Keys) {
 
 # Notify completion
 "--- End of Report ---" | Out-File -FilePath $diagnosticsFile -Append
-Write-Output "Diagnostics report created at $diagnosticsFile"
+Write-Output "Diagnostics report appended to $diagnosticsFile"
