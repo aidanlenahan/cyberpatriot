@@ -1,4 +1,4 @@
-# This script completes step 5 of Windows in Cyberpatriot
+# This script completes step 5 of Windows in Cyberpatriot.
 # https://docs.google.com/document/d/e/2PACX-1vT2zjA8CaPWgSmMfjuAQXL91jd2ioXfFl3J_zvzhtXNg7lFbNFENRbakHlqrodOCvrJ8hJ_O5YRnCyt/pub
 
 # Define the path for the diagnostics report
