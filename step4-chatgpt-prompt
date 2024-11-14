@@ -1,0 +1,31 @@
+Based off of the list I am about to give you, please provide the users and administrators in the following format so they can be properly parsed for a script:
+
+    Users List: List all standard users (non-administrators) on separate lines.
+    Administrators List: After the line administrators:, list all administrator users, one per line.
+
+    
+Example format (replace with actual users):
+
+user1
+user2
+user3
+user4
+user5
+
+administrators:
+user1
+user2
+user3
+user4
+user5
+
+
+Make sure:
+
+    Every user appears only once in the relevant section.
+    There are no extra spaces or formatting around the usernames.
+    Ensure that the list of administrators only includes users who should have administrative privileges.
+
+    
+Here is the list that I need you to format how I told you to:
+--
