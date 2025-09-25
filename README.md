@@ -102,6 +102,10 @@ This guide provides a step-by-step approach to hardening a Windows CyberPatriot 
    - Configure updates through **Group Policy Editor (gpedit.msc)**.
 4. **Apply Windows Security Policies (SecPol):**
    - Use **MMC** (Microsoft Management Console) to configure security policies with `.inf` files.
+---
+
+## Common Problems
+After applying the INF part of step 6, it may be difficult to install ```.exe``` or ```.msi```. If this is the case, use ```msiexec /i "C:\path\to\package.msi"``` in an admin Command Prompt, and it will install just fine.
 
 ---
 
