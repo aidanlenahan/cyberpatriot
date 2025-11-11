@@ -1,0 +1,810 @@
+
+Script Execution Started - 11/11/2025 07:21:08
+
+No suspicious processes found.
+
+Suspicious Open Ports:
+
+Port: 49699 on IP: ::
+
+Port: 49668 on IP: ::
+
+Port: 49667 on IP: ::
+
+Port: 49666 on IP: ::
+
+Port: 49665 on IP: ::
+
+Port: 49664 on IP: ::
+
+Port: 42050 on IP: ::1
+
+Port: 8834 on IP: ::
+
+Port: 7680 on IP: ::
+
+Port: 445 on IP: ::
+
+Port: 135 on IP: ::
+
+Port: 49699 on IP: 0.0.0.0
+
+Port: 49668 on IP: 0.0.0.0
+
+Port: 49667 on IP: 0.0.0.0
+
+Port: 49666 on IP: 0.0.0.0
+
+Port: 49665 on IP: 0.0.0.0
+
+Port: 49664 on IP: 0.0.0.0
+
+Port: 8834 on IP: 0.0.0.0
+
+Port: 5040 on IP: 0.0.0.0
+
+Port: 139 on IP: 192.168.211.132
+
+Port: 135 on IP: 0.0.0.0
+
+No FTP services found.
+
+Scheduled Tasks Found:
+
+Task: MicrosoftEdgeUpdateTaskMachineCore{66E8F006-178B-4EF1-9F0A-D56B2926D6C4} - Status: Ready
+
+Task: MicrosoftEdgeUpdateTaskMachineUA{8700E7C1-E19F-4F02-9C74-64D3B56FAC25} - Status: Ready
+
+Task: npcapwatchdog - Status: Ready
+
+Task: OneDrive Reporting Task-S-1-5-21-593499023-2510359082-2894848093-1002 - Status: Ready
+
+Task: OneDrive Standalone Update Task-S-1-5-21-593499023-2510359082-2894848093-1002 - Status: Ready
+
+Task: OneDrive Startup Task-S-1-5-21-593499023-2510359082-2894848093-1002 - Status: Ready
+
+Task: GoogleUpdaterTaskSystem143.0.7482.0{139C09BF-02A5-4C9F-B179-EB5F6C7C0B74} - Status: Ready
+
+Task: .NET Framework NGEN v4.0.30319 - Status: Ready
+
+Task: .NET Framework NGEN v4.0.30319 64 - Status: Ready
+
+Task: RecoverabilityToastTask - Status: Ready
+
+Task: AD RMS Rights Policy Template Management (Manual) - Status: Ready
+
+Task: EDP Policy Manager - Status: Ready
+
+Task: PolicyConverter - Status: Ready
+
+Task: VerifiedPublisherCertStoreCheck - Status: Ready
+
+Task: MareBackup - Status: Ready
+
+Task: Microsoft Compatibility Appraiser - Status: Ready
+
+Task: Microsoft Compatibility Appraiser Exp - Status: Ready
+
+Task: PcaPatchDbTask - Status: Ready
+
+Task: SdbinstMergeDbTask - Status: Ready
+
+Task: StartupAppTask - Status: Ready
+
+Task: appuriverifierdaily - Status: Ready
+
+Task: appuriverifierinstall - Status: Ready
+
+Task: CleanupTemporaryState - Status: Ready
+
+Task: DsSvcCleanup - Status: Ready
+
+Task: Backup - Status: Ready
+
+Task: BackupNonMaintenance - Status: Ready
+
+Task: Pre-staged app cleanup - Status: Ready
+
+Task: UCPD velocity - Status: Ready
+
+Task: Proxy - Status: Ready
+
+Task: BitLocker Encrypt All Drives - Status: Ready
+
+Task: BitLocker MDM policy Refresh - Status: Ready
+
+Task: UninstallDeviceTask - Status: Ready
+
+Task: BgTaskRegistrationMaintenanceTask - Status: Ready
+
+Task: maintenancetasks - Status: Ready
+
+Task: AikCertEnrollTask - Status: Ready
+
+Task: CryptoPolicyTask - Status: Ready
+
+Task: KeyPreGenTask - Status: Ready
+
+Task: SystemTask - Status: Ready
+
+Task: UserTask - Status: Ready
+
+Task: UserTask-Roam - Status: Ready
+
+Task: ProactiveScan - Status: Ready
+
+Task: SyspartRepair - Status: Ready
+
+Task: CreateObjectTask - Status: Ready
+
+Task: Backup - Status: Ready
+
+Task: Restore - Status: Ready
+
+Task: UnifiedConsentSyncTask - Status: Ready
+
+Task: CmCleanup - Status: Ready
+
+Task: Consolidator - Status: Ready
+
+Task: UsbCeip - Status: Ready
+
+Task: Data Integrity Check And Scan - Status: Ready
+
+Task: Data Integrity Scan - Status: Ready
+
+Task: Data Integrity Scan for Crash Recovery - Status: Ready
+
+Task: ScheduledDefrag - Status: Ready
+
+Task: Device - Status: Ready
+
+Task: Device User - Status: Ready
+
+Task: Metadata Refresh - Status: Ready
+
+Task: HandleCommand - Status: Ready
+
+Task: HandleWnsCommand - Status: Ready
+
+Task: IntegrityCheck - Status: Ready
+
+Task: LocateCommandUserSession - Status: Ready
+
+Task: RegisterDeviceAccountChange - Status: Ready
+
+Task: RegisterDevicePolicyChange - Status: Ready
+
+Task: RegisterDeviceProtectionStateChanged - Status: Ready
+
+Task: RegisterDeviceSettingChange - Status: Ready
+
+Task: RegisterDeviceWnsFallback - Status: Ready
+
+Task: RegisterUserDevice - Status: Ready
+
+Task: RecommendedTroubleshootingScanner - Status: Ready
+
+Task: Scheduled - Status: Ready
+
+Task: UnexpectedCodepath - Status: Ready
+
+Task: DirectXDatabaseUpdater - Status: Ready
+
+Task: DXGIAdapterCache - Status: Ready
+
+Task: SilentCleanup - Status: Ready
+
+Task: Microsoft-Windows-DiskDiagnosticDataCollector - Status: Ready
+
+Task: Diagnostics - Status: Ready
+
+Task: StorageSense - Status: Ready
+
+Task: dusmtask - Status: Ready
+
+Task: EDP App Launch Task - Status: Ready
+
+Task: EDP Auth Task - Status: Ready
+
+Task: EDP Inaccessible Credentials Task - Status: Ready
+
+Task: StorageCardEncryption Task - Status: Ready
+
+Task: ExploitGuard MDM policy Refresh - Status: Ready
+
+Task: DmClient - Status: Ready
+
+Task: DmClientOnScenarioDownload - Status: Ready
+
+Task: File History (maintenance mode) - Status: Ready
+
+Task: GovernedFeatureUsageProcessing - Status: Ready
+
+Task: ReconcileConfigs - Status: Ready
+
+Task: ReconcileFeatures - Status: Ready
+
+Task: UsageDataFlushing - Status: Ready
+
+Task: UsageDataReceiver - Status: Ready
+
+Task: UsageDataReporting - Status: Ready
+
+Task: RefreshCache - Status: Ready
+
+Task: Monitoring - Status: Ready
+
+Task: InputSettingsRestoreDataAvailable - Status: Ready
+
+Task: LocalUserSyncDataAvailable - Status: Ready
+
+Task: MouseSyncDataAvailable - Status: Ready
+
+Task: PenSyncDataAvailable - Status: Ready
+
+Task: RemoteMouseSyncDataAvailable - Status: Ready
+
+Task: RemotePenSyncDataAvailable - Status: Ready
+
+Task: RemoteTouchpadSyncDataAvailable - Status: Ready
+
+Task: syncpensettings - Status: Ready
+
+Task: TouchpadSyncDataAvailable - Status: Ready
+
+Task: RestoreDevice - Status: Ready
+
+Task: ScanForUpdates - Status: Ready
+
+Task: ScanForUpdatesAsUser - Status: Ready
+
+Task: SmartRetry - Status: Ready
+
+Task: Synchronize Language Settings - Status: Ready
+
+Task: La57Cleanup - Status: Ready
+
+Task: Installation - Status: Ready
+
+Task: ReconcileLanguageResources - Status: Ready
+
+Task: Uninstallation - Status: Ready
+
+Task: TempSignedLicenseExchange - Status: Ready
+
+Task: WindowsActionDialog - Status: Ready
+
+Task: WinSAT - Status: Ready
+
+Task: Cellular - Status: Ready
+
+Task: Logon - Status: Ready
+
+Task: MapsToastTask - Status: Ready
+
+Task: AutomaticOfflineMemoryDiagnostic - Status: Ready
+
+Task: ProcessMemoryDiagnosticEvents - Status: Ready
+
+Task: LPRemove - Status: Ready
+
+Task: NcsiIdentifyUserProxies - Status: Ready
+
+Task: WiFiTask - Status: Ready
+
+Task: PCR Prediction Framework Firmware Update Task - Status: Ready
+
+Task: RequestTrace - Status: Ready
+
+Task: WhesvcToast - Status: Ready
+
+Task: Secure-Boot-Update - Status: Ready
+
+Task: Sqm-Tasks - Status: Ready
+
+Task: Device Install Group Policy - Status: Ready
+
+Task: Device Install Reboot Required - Status: Ready
+
+Task: Sysprep Generalize Drivers - Status: Ready
+
+Task: Pluton-Ksp-Provisioning - Status: Ready
+
+Task: AnalyzeSystem - Status: Ready
+
+Task: EduPrintProv - Status: Ready
+
+Task: PrinterCleanupTask - Status: Ready
+
+Task: LoginCheck - Status: Ready
+
+Task: Registration - Status: Ready
+
+Task: MobilityManager - Status: Ready
+
+Task: VerifyWinRE - Status: Ready
+
+Task: Initialization - Status: Ready
+
+Task: RegIdleBackup - Status: Ready
+
+Task: RemoteAssistanceTask - Status: Ready
+
+Task: StartComponentCleanup - Status: Ready
+
+Task: CreateObjectTask - Status: Ready
+
+Task: FamilySafetyMonitor - Status: Ready
+
+Task: FamilySafetyRefreshTask - Status: Ready
+
+Task: IndexerAutomaticMaintenance - Status: Ready
+
+Task: ThemesSyncedImageDownload - Status: Ready
+
+Task: UpdateUserPictureTask - Status: Ready
+
+Task: SvcRestartTask - Status: Ready
+
+Task: SvcRestartTaskLogon - Status: Ready
+
+Task: SvcRestartTaskNetwork - Status: Ready
+
+Task: SpaceAgentTask - Status: Ready
+
+Task: SpaceManagerTask - Status: Ready
+
+Task: SpeechModelDownloadTask - Status: Ready
+
+Task: MaintenanceTasks - Status: Ready
+
+Task: Storage Tiers Management Initialization - Status: Ready
+
+Task: EnableLicenseAcquisition - Status: Ready
+
+Task: PowerGridForecastTask - Status: Ready
+
+Task: SustainabilityTelemetry - Status: Ready
+
+Task: ResPriStaticDbSync - Status: Ready
+
+Task: WsSwapAssessmentTask - Status: Ready
+
+Task: SR - Status: Ready
+
+Task: Interactive - Status: Ready
+
+Task: MsCtfMonitor - Status: Ready
+
+Task: ForceSynchronizeTime - Status: Ready
+
+Task: SynchronizeTime - Status: Ready
+
+Task: SynchronizeTimeZone - Status: Ready
+
+Task: Tpm-HASCertRetr - Status: Ready
+
+Task: Tpm-Maintenance - Status: Ready
+
+Task: Tpm-PreAttestationHealthCheck - Status: Ready
+
+Task: Report policies - Status: Ready
+
+Task: Schedule Scan - Status: Ready
+
+Task: Schedule Scan Static Task - Status: Ready
+
+Task: Schedule Work - Status: Ready
+
+Task: Start Oobe Expedite Work - Status: Ready
+
+Task: StartOobeAppsScanAfterUpdate - Status: Ready
+
+Task: StartOobeAppsScan_LicenseAccepted - Status: Ready
+
+Task: UIEOrchestrator - Status: Ready
+
+Task: USO_UxBroker - Status: Ready
+
+Task: UUS Failover Task - Status: Ready
+
+Task: UPnPHostConfig - Status: Ready
+
+Task: UsageAndQualityInsights-MaintenanceTask - Status: Ready
+
+Task: Usb-Notifications - Status: Ready
+
+Task: PerformRemediation - Status: Ready
+
+Task: WiFiTask - Status: Ready
+
+Task: ResolutionHost - Status: Ready
+
+Task: Windows Defender Cache Maintenance - Status: Ready
+
+Task: Windows Defender Cleanup - Status: Ready
+
+Task: Windows Defender Scheduled Scan - Status: Ready
+
+Task: Windows Defender Verification - Status: Ready
+
+Task: QueueReporting - Status: Ready
+
+Task: BfeOnServiceStartTypeChange - Status: Ready
+
+Task: UpdateLibrary - Status: Ready
+
+Task: PolicyConfiguration - Status: Ready
+
+Task: InitialConfiguration - Status: Ready
+
+Task: Calibration Loader - Status: Ready
+
+Task: Refresh Group Policy Cache - Status: Ready
+
+Task: Scheduled Start - Status: Ready
+
+Task: CDSSync - Status: Ready
+
+Task: MoProfileManagement - Status: Ready
+
+Task: WIM-Hash-Management - Status: Ready
+
+Task: WIM-Hash-Validation - Status: Ready
+
+Task: Work Folders Logon Synchronization - Status: Ready
+
+Task: Work Folders Maintenance Work - Status: Ready
+
+Task: NotificationTask - Status: Ready
+
+Task: OobeDiscovery - Status: Ready
+
+Task: XblGameSaveTask - Status: Ready
+
+Recent Event Logs:
+
+Event ID: 7040 - Message: The start type of the Plug and Play service was changed from demand start to disabled.
+
+Event ID: 256 - Message: [6692:5836:1111/071436.055:INFO:chrome\browser\extensions\extension_garbage_collector.cc:188] Garbage collection for extensions on file thread is complete.
+
+Event ID: 16384 - Message: Successfully scheduled Software Protection service for re-start at 2025-11-12T14:44:03Z. Reason: RulesEngine.
+
+Event ID: 16394 - Message: Offline downlevel migration succeeded.
+
+Event ID: 566 - Message: The system session has transitioned from 1 to 3.
+
+Reason InputHid 
+
+BootId: 17
+
+Event ID: 566 - Message: The system session has transitioned from 0 to 1.
+
+Reason SessionUnlock 
+
+BootId: 17
+
+Event ID: 16 - Message: The access history in hive \??\C:\ProgramData\Microsoft\Provisioning\Microsoft-Desktop-Provisioning-Sequence.dat was cleared updating 0 keys and creating 0 modified pages.
+
+Event ID: 258 - Message: The storage optimizer successfully completed boot optimization on (C:)
+
+Event ID: 15 - Message: Updated Windows Defender status successfully to SECURITY_PRODUCT_STATE_ON.
+
+Event ID: 19 - Message: Installation Successful: Windows successfully installed the following update: Security Intelligence Update for Microsoft Defender Antivirus - KB2267602 (Version 1.441.135.0) - Current Channel (Broad)
+
+Disabling SMBv1 Protocol to prevent remote exploitation...
+
+SMBv1 has been successfully disabled.
+
+Checking for additional suspicious processes using https://www.processlibrary.com/...
+
+List of running processes to check at https://www.processlibrary.com/ for suspicious activity:
+
+AggregatorHost
+
+ApplicationFrameHost
+
+backgroundTaskHost
+
+cmd
+
+conhost
+
+conhost
+
+CrossDeviceResume
+
+csrss
+
+csrss
+
+ctfmon
+
+dllhost
+
+dllhost
+
+dwm
+
+explorer
+
+FileCoAuth
+
+fontdrvhost
+
+fontdrvhost
+
+Idle
+
+lsass
+
+Memory Compression
+
+MpDefenderCoreService
+
+msdtc
+
+msedge
+
+msedge
+
+msedge
+
+msedge
+
+msedge
+
+msedge
+
+msedge
+
+msedge
+
+msedge
+
+msedge
+
+msedge
+
+msedge
+
+msedge
+
+msedgewebview2
+
+msedgewebview2
+
+msedgewebview2
+
+msedgewebview2
+
+msedgewebview2
+
+msedgewebview2
+
+MsMpEng
+
+nessusd
+
+nessus-service
+
+NisSrv
+
+OneDrive
+
+OneDrive.Sync.Service
+
+powershell
+
+Registry
+
+RuntimeBroker
+
+RuntimeBroker
+
+RuntimeBroker
+
+RuntimeBroker
+
+SearchHost
+
+SearchIndexer
+
+SecurityHealthService
+
+SecurityHealthSystray
+
+services
+
+ShellExperienceHost
+
+ShellHost
+
+sihost
+
+smartscreen
+
+smss
+
+spoolsv
+
+StartMenuExperienceHost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+svchost
+
+System
+
+SystemSettingsAdminFlows
+
+taskhostw
+
+TiWorker
+
+TrustedInstaller
+
+VGAuthService
+
+vmtoolsd
+
+vmtoolsd
+
+Widgets
+
+WidgetService
+
+wininit
+
+winlogon
+
+WmiPrvSE
+
+Script Execution Ended - 11/11/2025 07:21:17
+
+End of Diagnostics
