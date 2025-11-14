@@ -790,3 +790,648 @@ Install all critical updates.
 
 # 30. Administrative Templates (Advanced Hardening)
 
+*(via gpedit.msc → Computer Configuration → Administrative Templates)*
+If using a Windows edition without Group Policy Editor, this entire section must be skipped.
+
+---
+
+# **31.1 Windows Components**
+
+---
+
+## **29.1.1 App Package Deployment**
+
+| Policy                                           | Setting  |
+| ------------------------------------------------ | -------- |
+| Allow all trusted apps to install                | Disabled |
+| Allow development of Windows Store apps          | Disabled |
+| Allow deployment operations in special profiles  | Disabled |
+| Allow installation of apps with root certificate | Disabled |
+| Allow sideloading of apps                        | Disabled |
+
+---
+
+## **29.1.2 App Privacy**
+
+| Policy                                      | Setting  |
+| ------------------------------------------- | -------- |
+| Let Windows apps access account info        | Disabled |
+| Let Windows apps access call history        | Disabled |
+| Let Windows apps access contacts            | Disabled |
+| Let Windows apps access email               | Disabled |
+| Let Windows apps access location            | Disabled |
+| Let Windows apps access messaging           | Disabled |
+| Let Windows apps access motion data         | Disabled |
+| Let Windows apps access name, picture, etc. | Disabled |
+| Let Windows apps access radios              | Disabled |
+| Let Windows apps access tasks               | Disabled |
+| Let Windows apps run in background          | Disabled |
+
+---
+
+## **29.1.3 Application Compatibility**
+
+| Policy                                   | Setting |
+| ---------------------------------------- | ------- |
+| Turn off Program Compatibility Assistant | Enabled |
+| Turn off Application Telemetry           | Enabled |
+| Turn off Inventory Collector             | Enabled |
+
+---
+
+## **29.1.4 AutoPlay Policies**
+
+| Policy                                   | Setting                                      |
+| ---------------------------------------- | -------------------------------------------- |
+| Turn off AutoPlay                        | Enabled                                      |
+| Set default behavior for AutoRun         | Enabled: Do not execute any autorun commands |
+| Disallow AutoPlay for non-volume devices | Enabled                                      |
+
+---
+
+## **29.1.5 Biometrics**
+
+Disable biometrics unless explicitly needed.
+
+| Policy                                        | Setting  |
+| --------------------------------------------- | -------- |
+| Allow the use of biometrics                   | Disabled |
+| Allow users to log on using biometrics        | Disabled |
+| Allow domain users to log on using biometrics | Disabled |
+
+---
+
+## **29.1.6 BitLocker Drive Encryption**
+
+| Policy                                                           | Setting  |
+| ---------------------------------------------------------------- | -------- |
+| Configure use of passwords                                       | Enabled  |
+| Configure use of smart cards                                     | Disabled |
+| Allow enhanced PINs                                              | Disabled |
+| Require additional authentication at startup                     | Disabled |
+| Deny write access to removable drives not protected by BitLocker | Enabled  |
+
+---
+
+## **29.1.7 Cloud Content**
+
+| Policy                                  | Setting |
+| --------------------------------------- | ------- |
+| Turn off Microsoft consumer experiences | Enabled |
+| Do not show Windows tips                | Enabled |
+| Turn off cloud Optimizations            | Enabled |
+
+---
+
+## **29.1.8 Data Collection & Preview Builds**
+
+| Policy                             | Setting                    |
+| ---------------------------------- | -------------------------- |
+| Allow Telemetry                    | Enabled: 0 (Security only) |
+| Do not show feedback notifications | Enabled                    |
+| Disable OneDrive file sync         | Enabled                    |
+
+---
+
+## **29.1.9 Delivery Optimization**
+
+| Policy                     | Setting    |
+| -------------------------- | ---------- |
+| Download mode              | Bypass (0) |
+| Maximum upload bandwidth   | Set to 0   |
+| Maximum download bandwidth | Set to 0   |
+| Restrict Peer Caching      | Enabled    |
+
+---
+
+## **29.1.10 Desktop Gadgets (Windows 7)**
+
+If applicable:
+
+| Policy                                    | Setting |
+| ----------------------------------------- | ------- |
+| Turn off desktop gadgets                  | Enabled |
+| Turn off clock, contacts, weather gadgets | Enabled |
+
+---
+
+## **29.1.11 Event Forwarding / Event Log**
+
+| Policy                            | Setting                           |
+| --------------------------------- | --------------------------------- |
+| Configure analytic and debug logs | Enabled                           |
+| Specify log retention             | Enabled                           |
+| Maximum log size                  | 64 MB (or per policy requirement) |
+
+---
+
+## **29.1.12 File Explorer / Windows Explorer**
+
+| Policy                                                  | Setting                      |
+| ------------------------------------------------------- | ---------------------------- |
+| Turn off Windows + X hotkeys                            | Enabled                      |
+| Do not use temporary folders per session                | Enabled                      |
+| Turn off thumbnails                                     | Enabled                      |
+| Turn off display of recent search entries               | Enabled                      |
+| Turn off caching of thumbnail pictures                  | Enabled                      |
+| Do not allow access to the command prompt               | Enabled                      |
+| Turn off the display of thumbnails & only display icons | Enabled                      |
+| Hide these specified drives                             | Enabled: Restrict all drives |
+
+---
+
+## **29.1.13 Internet Explorer**
+
+*(Only applies to systems where IE exists)*
+
+| Policy                           | Setting |
+| -------------------------------- | ------- |
+| Turn off auto-complete           | Enabled |
+| Turn off browser geolocation     | Enabled |
+| Disable toolbars                 | Enabled |
+| Disable script debugging         | Enabled |
+| Prevent running First Run Wizard | Enabled |
+| Disable password caching         | Enabled |
+| Turn off InPrivate browsing      | Enabled |
+| Turn off InPrivate Filtering     | Enabled |
+| Security Zones: Set all to High  | Enabled |
+
+---
+
+## **29.1.14 Location & Sensors**
+
+| Policy                             | Setting |
+| ---------------------------------- | ------- |
+| Turn off location                  | Enabled |
+| Turn off sensors                   | Enabled |
+| Turn off Windows Location Provider | Enabled |
+
+---
+
+## **29.1.15 Microsoft Defender Antivirus**
+
+| Policy                                   | Setting      |
+| ---------------------------------------- | ------------ |
+| Turn off real-time protection            | Disabled     |
+| Turn off Microsoft Defender              | **Disabled** |
+| Scan removable drives                    | Enabled      |
+| Check for signatures before running scan | Enabled      |
+| Monitor file and program activity        | Enabled      |
+| Turn off routine remediation             | Disabled     |
+| Configure behavior monitoring            | Enabled      |
+
+---
+
+## **29.1.16 Microsoft Edge (Legacy)**
+
+| Policy                          | Setting |
+| ------------------------------- | ------- |
+| Prevent syncing of browser data | Enabled |
+| Configure Do Not Track          | Enabled |
+| Prevent running extensions      | Enabled |
+| Clear browsing data on exit     | Enabled |
+| Disable password manager        | Enabled |
+
+---
+
+## **29.1.17 Net Framework Configuration**
+
+| Policy                                          | Setting |
+| ----------------------------------------------- | ------- |
+| Turn off serialization of exceptions in ASP.NET | Enabled |
+| Restrict code execution to safe zones           | Enabled |
+
+---
+
+## **29.1.18 Network Sharing / Work Folders**
+
+| Policy                                     | Setting |
+| ------------------------------------------ | ------- |
+| Block syncing files on unmanaged computers | Enabled |
+| Disable Offline Files                      | Enabled |
+
+---
+
+## **29.1.19 OneDrive**
+
+| Policy                                         | Setting |
+| ---------------------------------------------- | ------- |
+| Prevent the usage of OneDrive for file storage | Enabled |
+| Save documents to local PC by default          | Enabled |
+
+---
+
+## **29.1.20 Presentation Settings**
+
+| Policy                         | Setting |
+| ------------------------------ | ------- |
+| Turn off presentation settings | Enabled |
+
+---
+
+## **29.1.21 Remote Desktop Services**
+
+| Policy                                                         | Setting  |
+| -------------------------------------------------------------- | -------- |
+| Do not allow connections from computers running Remote Desktop | Enabled  |
+| Allow RDP redirection                                          | Disabled |
+| Allow clipboard redirection                                    | Disabled |
+| Allow printer redirection                                      | Disabled |
+| Always prompt for password                                     | Enabled  |
+
+---
+
+## **29.1.22 Remote Server Administration Tools**
+
+Disable all RSAT tools unless the machine is explicitly an admin machine.
+
+---
+
+## **29.1.23 Search**
+
+| Policy                                      | Setting |
+| ------------------------------------------- | ------- |
+| Disable web search                          | Enabled |
+| Don’t search the web or display web results | Enabled |
+| Do not allow Cortana                        | Enabled |
+| Turn off display of recent searches         | Enabled |
+
+---
+
+## **29.1.24 Smart Card**
+
+| Policy                                          | Setting          |
+| ----------------------------------------------- | ---------------- |
+| Smart card removal behavior                     | Lock workstation |
+| Allow certificates with no embedded private key | Disabled         |
+| Allow integrated unblock feature                | Disabled         |
+
+---
+
+## **29.1.25 Software Protection Platform**
+
+| Policy                            | Setting |
+| --------------------------------- | ------- |
+| Turn off activation notifications | Enabled |
+
+---
+
+## **29.1.26 Store (Microsoft Store)**
+
+| Policy                         | Setting |
+| ------------------------------ | ------- |
+| Turn off Microsoft Store       | Enabled |
+| Disable all Store apps         | Enabled |
+| Turn off automatic app updates | Enabled |
+
+---
+
+## **29.1.27 Sync Your Settings**
+
+| Policy                       | Setting |
+| ---------------------------- | ------- |
+| Do not sync                  | Enabled |
+| Do not sync browser settings | Enabled |
+| Do not sync passwords        | Enabled |
+
+---
+
+## **29.1.28 Task Scheduler**
+
+Disable any scheduled task deemed unnecessary.
+
+---
+
+## **29.1.29 Windows Hello for Business**
+
+| Policy                         | Setting  |
+| ------------------------------ | -------- |
+| Use Windows Hello for Business | Disabled |
+| Use biometrics                 | Disabled |
+
+---
+
+## **29.1.30 Windows Installer**
+
+| Policy                 | Setting |
+| ---------------------- | ------- |
+| Prohibit user installs | Enabled |
+| Disable rollback       | Enabled |
+
+---
+
+## **29.1.31 Windows Logon Options**
+
+| Policy                                    | Setting |
+| ----------------------------------------- | ------- |
+| Do not display last signed-in user        | Enabled |
+| Hide entry points for Fast User Switching | Enabled |
+| Disable lock screen                       | Enabled |
+
+---
+
+## **29.1.32 Windows Media Digital Rights Management**
+
+Disable all DRM sharing / acquisition features.
+
+---
+
+## **29.1.33 Windows Messenger**
+
+Disable Windows Messenger if present.
+
+---
+
+## **29.1.34 Windows PowerShell**
+
+| Policy                          | Setting  |
+| ------------------------------- | -------- |
+| Turn on Script Execution        | Disabled |
+| Disallow downloading of scripts | Enabled  |
+
+---
+
+## **29.1.35 Windows Remote Management (WinRM)**
+
+| Policy                         | Setting  |
+| ------------------------------ | -------- |
+| Allow remote server management | Disabled |
+| Allow unencrypted traffic      | Disabled |
+| Allow basic authentication     | Disabled |
+
+---
+
+## **29.1.36 Windows Update**
+
+| Policy                                         | Setting                |
+| ---------------------------------------------- | ---------------------- |
+| Allow Automatic Updates                        | Enabled                |
+| Configure Automatic Updates                    | Enabled → Auto-install |
+| No auto-restart with logged-on users           | Enabled                |
+| Turn off access to all Windows Update features | Enabled                |
+
+---
+
+## **29.1.37 Windows Firewall (Advanced)**
+
+| Policy                         | Setting |
+| ------------------------------ | ------- |
+| Firewall state                 | On      |
+| Inbound connections            | Block   |
+| Outbound connections           | Allow   |
+| Logging (Dropped / Successful) | Enabled |
+| Log size                       | 6500 KB |
+
+---
+
+# **29.2 System**
+
+---
+
+## **29.2.1 Access Control**
+
+| Policy              | Setting             |
+| ------------------- | ------------------- |
+| Audit object access | Success and Failure |
+
+---
+
+## **29.2.2 Device Installation Restrictions**
+
+| Policy                                                                 | Setting  |
+| ---------------------------------------------------------------------- | -------- |
+| Prevent installation of devices not described by other policy settings | Enabled  |
+| Prevent installation of removable devices                              | Enabled  |
+| Allow administrators to override device installation restrictions      | Disabled |
+
+---
+
+## **29.2.3 Disk Quotas**
+
+Optional; typically disabled.
+
+---
+
+## **29.2.4 Driver Installation**
+
+| Policy                              | Setting |
+| ----------------------------------- | ------- |
+| Code Integrity check                | Enabled |
+| Only allow digitally signed drivers | Enabled |
+
+---
+
+## **29.2.5 File System**
+
+Disable 8.3 name creation unless required.
+
+---
+
+## **29.2.6 Group Policy**
+
+| Policy                                  | Setting |
+| --------------------------------------- | ------- |
+| Turn off processing of legacy ADM files | Enabled |
+| Configure registry policy processing    | Enabled |
+| Always wait for the network at startup  | Enabled |
+
+---
+
+## **29.2.7 Internet Communication Management**
+
+| Policy                                                   | Setting |
+| -------------------------------------------------------- | ------- |
+| Turn off handwriting personalization                     | Enabled |
+| Turn off Help Ratings                                    | Enabled |
+| Turn off Internet download for Web publishing            | Enabled |
+| Turn off Windows Error Reporting                         | Enabled |
+| Turn off Windows Customer Experience Improvement Program | Enabled |
+
+---
+
+## **29.2.8 Kerberos**
+
+| Policy                                   | Setting     |
+| ---------------------------------------- | ----------- |
+| Enforce user logon restrictions          | Enabled     |
+| Maximum lifetime for service tickets     | 600 minutes |
+| Maximum lifetime for user tickets        | 10 hours    |
+| Maximum lifetime for user ticket renewal | 7 days      |
+
+---
+
+## **29.2.9 Logon**
+
+| Policy                                          | Setting |
+| ----------------------------------------------- | ------- |
+| Always wait for the network at startup          | Enabled |
+| Do not process the run once list                | Enabled |
+| Turn off automatic Restart Sign-On (Windows 10) | Enabled |
+
+---
+
+## **29.2.10 Power Management**
+
+| Policy                                   | Setting |
+| ---------------------------------------- | ------- |
+| Require a password when a computer wakes | Enabled |
+| Turn off hybrid sleep                    | Enabled |
+| Turn off hibernation                     | Enabled |
+| Turn off fast startup                    | Enabled |
+
+---
+
+## **29.2.11 Scripts**
+
+Disable login scripts unless required.
+
+---
+
+## **29.2.12 User Profiles**
+
+| Policy                                           | Setting |
+| ------------------------------------------------ | ------- |
+| Delete cached copies of roaming profiles         | Enabled |
+| Prevent Roaming Profile changes from propagating | Enabled |
+| Only allow local profiles                        | Enabled |
+
+---
+
+## **29.2.13 Windows Time Service**
+
+| Policy                       | Setting  |
+| ---------------------------- | -------- |
+| Configure Windows NTP Client | Disabled |
+
+---
+
+# **29.3 Network**
+
+---
+
+## **29.3.1 DNS Client**
+
+| Policy                                     | Setting |
+| ------------------------------------------ | ------- |
+| Turn off smart multi-homed name resolution | Enabled |
+
+---
+
+## **29.3.2 Offline Files**
+
+| Policy                                 | Setting           |
+| -------------------------------------- | ----------------- |
+| Allow or disallow use of Offline Files | Enabled: Disabled |
+
+---
+
+## **29.3.3 QoS Packet Scheduler**
+
+| Policy                     | Setting      |
+| -------------------------- | ------------ |
+| Limit reservable bandwidth | Enabled (0%) |
+
+---
+
+## **29.3.4 Windows Connect Now**
+
+| Policy          | Setting |
+| --------------- | ------- |
+| Prohibit access | Enabled |
+
+---
+
+# **29.4 Printers**
+
+Disable everything unless this is a print server.
+
+---
+
+## **29.4.1 Printer Redirection**
+
+| Policy                                      | Setting  |
+| ------------------------------------------- | -------- |
+| Turn off Windows default printer management | Enabled  |
+| Allow printers to be published              | Disabled |
+
+---
+
+# **29.5 Start Menu and Taskbar**
+
+| Policy                                           | Setting |
+| ------------------------------------------------ | ------- |
+| Turn off notifications                           | Enabled |
+| Do not keep history of recently opened documents | Enabled |
+| Do not display or track recent items             | Enabled |
+| Remove Run menu                                  | Enabled |
+| Prevent changes to Taskbar and Start Menu        | Enabled |
+| Turn off user tile                               | Enabled |
+
+---
+
+# **29.6 Control Panel**
+
+---
+
+## **29.6.1 Personalization**
+
+| Policy                             | Setting |
+| ---------------------------------- | ------- |
+| Prevent changing desktop wallpaper | Enabled |
+| Prevent changing lock screen       | Enabled |
+| Prevent changing screensaver       | Enabled |
+
+---
+
+## **29.6.2 Display**
+
+| Policy                        | Setting |
+| ----------------------------- | ------- |
+| Disable display control panel | Enabled |
+| Turn off adaptive brightness  | Enabled |
+
+---
+
+# **29.7 Windows Components (Additional Subsections)**
+
+Any remaining Microsoft “Windows Components” that appear but were not listed above should be set to:
+
+* **Disabled** if they represent:
+
+  * Sharing
+  * Remote access
+  * Cloud integration
+  * Consumer features
+  * Advertising
+  * Syncing
+  * Telemetry
+  * Background data usage
+
+* **Not Configured** if they are legacy or irrelevant.
+
+---
+
+# **END OF ADMINISTRATIVE TEMPLATES SECTION**
+
+---
+
+# **FINAL SECTION — Closing Steps**
+
+These are the last remaining items in the checklist.
+
+---
+
+# **30. Final System Verification**
+
+1. Verify **all services** are set to required states.
+2. Verify **startup items** are disabled except approved ones.
+3. Confirm **no unauthorized users** exist.
+4. Confirm **Administrator is renamed** (if appropriate).
+5. Confirm **Guest is disabled**.
+6. Confirm **firewall is enabled** with correct policies.
+7. Run **Malwarebytes**, **Spybot**, and **GMER** final scans.
+8. Confirm all Windows Updates installed.
+9. Confirm System Restore is active and final restore point exists.
+10. Reboot the system.
+11. Run `netstat -ano` again after reboot to confirm clean baseline.
+12. Create a clean backup image if desired.
