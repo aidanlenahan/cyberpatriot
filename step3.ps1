@@ -37,7 +37,7 @@ $smbShares | Out-File $diagnosticsFile -Append
 
 # Recursively list all media files from C:\Users and output to diagnostics3.txt
 Write-Host "Listing media files in C:\Users..." -ForegroundColor Cyan
-$mediaExtensions = "*.mp3", "*.zip", "*.mp4", "*.mov", "*.wav", "*.aac", "*.flac", "*.mkv", "*.png", "*.jpeg", "*.jpg", "*.gif", "*.tiff", "*.bmp", "*.pdf", "*.doc", "*.docx", "*.doc", "*.exe", "*.msi", "*.cmd", "*.txt"
+$mediaExtensions = "*.mp3", "*.mp4", "*.mov", "*.wav", "*.aac", "*.flac", "*.mkv", "*.png", "*.jpeg", "*.jpg", "*.gif", "*.tiff", "*.bmp", "*.pdf", "*.doc", "*.docx", "*.exe", "*.msi", "*.cmd"
 $mediaFiles = Get-ChildItem -Path C:\Users\* -Recurse -Include $mediaExtensions -ErrorAction SilentlyContinue
 
 "=== Media Files Found in C:\Users ===" | Out-File $diagnosticsFile -Append
