@@ -5,7 +5,7 @@
 $logFile = "$PSScriptRoot\diagnostics6.txt"
 
 # Clear the log file at the start
-Clear-Content $logFile -ErrorAction SilentlyContinue
+# Clear-Content $logFile -ErrorAction SilentlyContinue
 
 # Function to log messages with formatting
 function Log-Message {
