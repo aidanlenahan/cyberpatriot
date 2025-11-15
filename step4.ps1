@@ -1,125 +1,146 @@
-# RBR02-CyberP@triot-2024rbr
+<#
+.SYNOPSIS
+    Completes Step 4 of the Windows CyberPatriot checklist.
+    This script manages local users and groups based on an authorized users file.
 
-# This script completes step 4 of Windows in Cyberpatriot
-# https://docs.google.com/document/d/e/2PACX-1vT2zjA8CaPWgSmMfjuAQXL91jd2ioXfFl3J_zvzhtXNg7lFbNFENRbakHlqrodOCvrJ8hJ_O5YRnCyt/pub
+.DESCRIPTION
+    This script reads a list of authorized users and administrators from 'authusers.txt'.
+    It disables any local users not on the authorized list, manages the local Administrators group to match the list,
+    disables the default Guest and Administrator accounts, and sets a standardized password for all local users.
+    A template for 'authusers.txt' is created if it doesn't exist.
 
-# Get the current directory path
-$scriptDir = (Get-Location).Path
+.NOTES
+    Author: Gemini
+    Date: 2025-11-15
+#>
+[CmdletBinding()]
+param()
 
-# Define file paths
-$diagnosticsFile = "$scriptDir\diagnostics4.txt"
-$authUsersFile = "$scriptDir\authusers.txt"
-
-# Function to log changes to diagnostics4.txt
-function Log-Diagnostics {
-    param (
-        [string]$message
-    )
-    Add-Content -Path $diagnosticsFile -Value $message
+# Start logging
+$LogPath = "C:\CyberPatriot\Logs"
+if (-not (Test-Path $LogPath)) {
+    New-Item -Path $LogPath -ItemType Directory -Force | Out-Null
 }
+Start-Transcript -Path "$LogPath\step4-log.txt" -Append
 
-# Initialize diagnostics file
-Log-Diagnostics "`n========================="
-Log-Diagnostics "Diagnostics Report - $(Get-Date)"
-Log-Diagnostics "=========================`n"
+try {
+    Write-Verbose "Starting Step 4: Local user and group management."
 
-# Check if "authusers.txt" exists
-if (-Not (Test-Path -Path $authUsersFile)) {
-    # Create the "authusers.txt" template
-    $templateContent = @"
+    $authUsersFile = ".\authusers.txt"
+
+    if (-not (Test-Path -Path $authUsersFile)) {
+        Write-Host "'authusers.txt' not found. Creating a template file." -ForegroundColor Yellow
+        $templateContent = @"
+# List authorized standard users below this line
 user1
 user2
-user3
-user4
-user5
-usern
 
+# List authorized administrators below this line
 administrators:
-user1
-user2
-user3
-user4
-user5
+admin1
+admin2
 "@
-    Set-Content -Path $authUsersFile -Value $templateContent
-    Log-Diagnostics "authusers.txt was not found. Created a template for the competitor."
-} else {
-    # Read "authusers.txt" contents
-    $authUsers = Get-Content -Path $authUsersFile
-    $authUserList = @()
-    $adminList = @()
+        Set-Content -Path $authUsersFile -Value $templateContent
+        Write-Host "Template 'authusers.txt' created. Please edit it and re-run this script." -ForegroundColor Green
+        return
+    }
+
+    $authUsersContent = Get-Content -Path $authUsersFile
+    $authorizedUsers = @()
+    $authorizedAdmins = @()
     $isAdminSection = $false
 
-    # Parse users and administrators from the file
-    foreach ($line in $authUsers) {
+    foreach ($line in $authUsersContent) {
+        if ($line.Trim() -match '^#') { continue } # Skip comments
         if ($line -match '^administrators:') {
             $isAdminSection = $true
-        } elseif ($line.Trim() -ne '') {
+            continue
+        }
+        if ($line.Trim()) {
             if ($isAdminSection) {
-                $adminList += $line.Trim()
+                $authorizedAdmins += $line.Trim()
             } else {
-                $authUserList += $line.Trim()
+                $authorizedUsers += $line.Trim()
             }
         }
     }
+    # Admins are also users
+    $allAuthorizedUsers = $authorizedUsers + $authorizedAdmins
 
-    # Get all users on the system
+    Write-Verbose "Authorized Users: $($allAuthorizedUsers -join ', ')"
+    Write-Verbose "Authorized Admins: $($authorizedAdmins -join ', ')"
+
     $systemUsers = Get-LocalUser
     $currentUser = $env:USERNAME
 
-    # Disable users not in "authusers.txt"
+    # Disable unauthorized users
+    Write-Host "Disabling unauthorized local users..." -ForegroundColor Cyan
     foreach ($user in $systemUsers) {
-        if ($user.Name -ne $currentUser) {
-            if ($authUserList -notcontains $user.Name) {
-                # Disable user if not in authusers.txt
-                Disable-LocalUser -Name $user.Name
-                Log-Diagnostics "Disabled user: $($user.Name)"
+        if ($user.Name -ne $currentUser -and $allAuthorizedUsers -notcontains $user.Name) {
+            Write-Verbose "Disabling user: $($user.Name)"
+            Disable-LocalUser -Name $user.Name
+            if ((Get-LocalUser -Name $user.Name).Enabled -eq $false) {
+                Write-Host "Disabled user: $($user.Name)" -ForegroundColor Green
+            } else {
+                Write-Host "Failed to disable user: $($user.Name)" -ForegroundColor Red
             }
         }
     }
 
-    # Manage administrators group
-    $admins = Get-LocalGroupMember -Group "Administrators" | Select-Object -ExpandProperty Name
-    foreach ($admin in $admins) {
-        if ($adminList -notcontains $admin) {
-            Remove-LocalGroupMember -Group "Administrators" -Member $admin
-            Log-Diagnostics "Removed user $admin from Administrators group."
+    # Manage Administrators group
+    Write-Host "Managing Administrators group..." -ForegroundColor Cyan
+    $adminsGroup = Get-LocalGroupMember -Group "Administrators"
+    $adminsOnSystem = $adminsGroup | Select-Object -ExpandProperty Name
+
+    # Remove unauthorized admins
+    foreach ($admin in $adminsGroup) {
+        # Don't remove the current user, even if not in the list
+        if ($admin.Name -ne $currentUser -and $authorizedAdmins -notcontains $admin.Name) {
+            Write-Verbose "Removing $($admin.Name) from Administrators."
+            Remove-LocalGroupMember -Group "Administrators" -Member $admin.Name
+            Write-Host "Removed $($admin.Name) from Administrators." -ForegroundColor Green
         }
     }
 
-    foreach ($adminUser in $adminList) {
-        if ($admins -notcontains $adminUser) {
-            Add-LocalGroupMember -Group "Administrators" -Member $adminUser
-            Log-Diagnostics "Added user $adminUser to Administrators group."
+    # Add authorized admins
+    foreach ($admin in $authorizedAdmins) {
+        if ($adminsOnSystem -notcontains $admin) {
+            Write-Verbose "Adding $admin to Administrators."
+            Add-LocalGroupMember -Group "Administrators" -Member $admin
+            Write-Host "Added $admin to Administrators." -ForegroundColor Green
         }
     }
 
-    # Disable Guest and Administrator accounts
-    try {
-        Disable-LocalUser -Name "Guest"
-        Log-Diagnostics "Disabled Guest account."
-    } catch {
-        Log-Diagnostics "Error: Failed to disable Guest account."
+    # Disable default accounts
+    Write-Host "Disabling default Guest and Administrator accounts..." -ForegroundColor Cyan
+    foreach ($accountName in @("Guest", "Administrator")) {
+        $account = Get-LocalUser -Name $accountName -ErrorAction SilentlyContinue
+        if ($account -and $account.Enabled) {
+            Disable-LocalUser -Name $accountName
+            Write-Host "Disabled '$accountName' account." -ForegroundColor Green
+        } else {
+            Write-Host "'$accountName' account is already disabled or does not exist." -ForegroundColor Yellow
+        }
     }
 
-    try {
-        Disable-LocalUser -Name "Administrator"
-        Log-Diagnostics "Disabled Administrator account."
-    } catch {
-        Log-Diagnostics "Error: Failed to disable Administrator account."
-    }
-
-    # Set password for all users and remove "password never expires"
+    # Set password for all users
+    Write-Host "Setting password for all local users..." -ForegroundColor Cyan
+    Write-Host "WARNING: This will set a hardcoded password on all local user accounts." -ForegroundColor Yellow
+    $password = ConvertTo-SecureString "RBR02-CyberP@triot-2024rbr" -AsPlainText -Force
     foreach ($user in $systemUsers) {
         try {
-            $password = ConvertTo-SecureString "RBR02-CyberP@triot-2024rbr" -AsPlainText -Force
             Set-LocalUser -Name $user.Name -Password $password
             Set-LocalUser -Name $user.Name -PasswordNeverExpires $false
-            Log-Diagnostics "Password and policy updated for user: $($user.Name)"
+            Write-Host "Password and policy updated for user: $($user.Name)" -ForegroundColor Green
         } catch {
-            Log-Diagnostics "Error: Failed to set password for user: $($user.Name)"
+            Write-Host "Error setting password for user: $($user.Name). Maybe a built-in account." -ForegroundColor Red
         }
     }
 }
-
-Log-Diagnostics "`nAll changes completed successfully. If there were any errors, they have been logged."
+catch {
+    Write-Host "An error occurred: $($_.Exception.Message)" -ForegroundColor Red
+}
+finally {
+    Write-Verbose "Step 4 script finished."
+    Stop-Transcript
+}

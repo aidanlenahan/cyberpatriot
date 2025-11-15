@@ -1,73 +1,103 @@
-# This script completes step 3 of Windows in Cyberpatriot
-# https://docs.google.com/document/d/e/2PACX-1vT2zjA8CaPWgSmMfjuAQXL91jd2ioXfFl3J_zvzhtXNg7lFbNFENRbakHlqrodOCvrJ8hJ_O5YRnCyt/pub
+<#
+.SYNOPSIS
+    Completes Step 3 of the Windows CyberPatriot checklist.
+    This script enables the firewall, configures Windows Defender, lists file shares, finds media files, and detects unwanted applications.
 
-# Define the diagnostics file path
-$scriptPath = $MyInvocation.MyCommand.Path
-$diagnosticsFile = Join-Path (Split-Path $scriptPath) "diagnostics3.txt"
+.DESCRIPTION
+    This script performs several security and system cleanup tasks. It ensures the Windows Firewall is enabled for all profiles,
+    enables Windows Defender's real-time protection, lists all SMB file shares, searches for potentially inappropriate media files
+    in user directories, and scans for a list of unwanted applications. All actions are logged to a transcript file.
 
-# Initialize diagnostics3.txt with a header
-"========== SYSTEM DIAGNOSTICS REPORT ==========" | Out-File $diagnosticsFile
-"Generated on: $(Get-Date)" | Out-File $diagnosticsFile -Append
-"" | Out-File $diagnosticsFile -Append
+.NOTES
+    Author: Gemini
+    Date: 2025-11-15
+#>
+[CmdletBinding()]
+param()
 
-# Enable Windows Firewall
-Write-Host "Enabling Windows Firewall..." -ForegroundColor Cyan
-Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
-"=== Firewall Settings ===" | Out-File $diagnosticsFile -Append
-"Firewall is enabled for Domain, Public, and Private profiles." | Out-File $diagnosticsFile -Append
-"" | Out-File $diagnosticsFile -Append
-
-# Enable Windows Defender Real-Time Protection
-Write-Host "Enabling Windows Defender Real-Time Protection..." -ForegroundColor Cyan
-$preferences = Get-MpPreference
-if (-not $preferences.DisableRealtimeMonitoring) {
-    "Real-time protection was already enabled." | Out-File $diagnosticsFile -Append
-} else {
-    Set-MpPreference -DisableRealtimeMonitoring $false
-    "Real-time protection has been enabled." | Out-File $diagnosticsFile -Append
+# Start logging
+$LogPath = "C:\CyberPatriot\Logs"
+if (-not (Test-Path $LogPath)) {
+    New-Item -Path $LogPath -ItemType Directory -Force | Out-Null
 }
-"" | Out-File $diagnosticsFile -Append
+Start-Transcript -Path "$LogPath\step3-log.txt" -Append
 
-# Print all file shares and output to diagnostics3.txt
-Write-Host "Listing all file shares..." -ForegroundColor Cyan
-$smbShares = Get-SmbShare | Format-Table -AutoSize | Out-String
-"=== File Shares ===" | Out-File $diagnosticsFile -Append
-$smbShares | Out-File $diagnosticsFile -Append
-"" | Out-File $diagnosticsFile -Append
+try {
+    Write-Verbose "Starting Step 3: Security configuration and system cleanup."
 
-# Recursively list all media files from C:\Users and output to diagnostics3.txt
-Write-Host "Listing media files in C:\Users..." -ForegroundColor Cyan
-$mediaExtensions = "*.mp3", "*.mp4", "*.mov", "*.wav", "*.aac", "*.flac", "*.mkv", "*.png", "*.jpeg", "*.jpg", "*.gif", "*.tiff", "*.bmp", "*.pdf", "*.doc", "*.docx", "*.exe", "*.msi", "*.cmd"
-$mediaFiles = Get-ChildItem -Path C:\Users\* -Recurse -Include $mediaExtensions -ErrorAction SilentlyContinue
+    # Enable Windows Firewall
+    Write-Host "Enabling Windows Firewall..." -ForegroundColor Cyan
+    Write-Verbose "Setting firewall profiles Domain, Public, and Private to Enabled."
+    Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
+    $firewallProfiles = Get-NetFirewallProfile
+    if (($firewallProfiles | Where-Object { $_.Enabled -eq $true }).Count -ge 3) {
+        Write-Host "Windows Firewall enabled for all profiles." -ForegroundColor Green
+    } else {
+        Write-Host "Failed to enable Windows Firewall for all profiles." -ForegroundColor Red
+    }
 
-"=== Media Files Found in C:\Users ===" | Out-File $diagnosticsFile -Append
-if ($mediaFiles) {
-    $mediaFiles | ForEach-Object { $_.FullName } | Out-File $diagnosticsFile -Append
-} else {
-    "No media files found." | Out-File $diagnosticsFile -Append
-}
-"" | Out-File $diagnosticsFile -Append
+    # Enable Windows Defender Real-Time Protection
+    Write-Host "Configuring Windows Defender..." -ForegroundColor Cyan
+    if (Get-Module -ListAvailable -Name "Defender") {
+        Write-Verbose "Windows Defender module is available."
+        Write-Host "Enabling Windows Defender Real-Time Protection..." -ForegroundColor Cyan
+        Set-MpPreference -DisableRealtimeMonitoring $false
+        $defenderPref = Get-MpPreference
+        if (-not $defenderPref.DisableRealtimeMonitoring) {
+            Write-Host "Windows Defender Real-Time Protection is enabled." -ForegroundColor Green
+        } else {
+            Write-Host "Failed to enable Windows Defender Real-Time Protection." -ForegroundColor Red
+        }
+    } else {
+        Write-Host "Windows Defender module not found. Skipping Defender configuration." -ForegroundColor Yellow
+    }
 
-# Detect unwanted/bad apps
-Write-Host "Scanning for unwanted applications..." -ForegroundColor Cyan
-$badApps = @("Wireshark", "CCleaner", "Npcap", "PC Cleaner", "Network Stumbler", "L0phtCrack", "JDownloader", "Minesweeper", "Game", "Cleaner")
-$installedApps = Get-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*" , "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*" -ErrorAction SilentlyContinue | Select-Object DisplayName
+    # Print all file shares
+    Write-Host "Listing all file shares..." -ForegroundColor Cyan
+    $smbShares = Get-SmbShare
+    if ($smbShares) {
+        Write-Host "Current SMB Shares:"
+        $smbShares | Format-Table -AutoSize
+    } else {
+        Write-Host "No SMB shares found." -ForegroundColor Green
+    }
 
-"=== Unwanted Applications Found ===" | Out-File $diagnosticsFile -Append
-$unwantedFound = $false
-foreach ($app in $installedApps) {
-    foreach ($badApp in $badApps) {
-        if ($app.DisplayName -like "*$badApp*") {
-            $unwantedFound = $true
-            $app.DisplayName | Out-File $diagnosticsFile -Append
+    # Recursively list all media files from C:\Users
+    Write-Host "Listing media files in C:\Users..." -ForegroundColor Cyan
+    $mediaExtensions = @("*.mp3", "*.mp4", "*.mov", "*.wav", "*.aac", "*.flac", "*.mkv", "*.png", "*.jpeg", "*.jpg", "*.gif", "*.tiff", "*.bmp", "*.pdf", "*.doc", "*.docx", "*.exe", "*.msi", "*.cmd")
+    $mediaFiles = Get-ChildItem -Path C:\Users -Recurse -Include $mediaExtensions -ErrorAction SilentlyContinue
+    if ($mediaFiles) {
+        Write-Host "Found the following media files in C:\Users:"
+        $mediaFiles | ForEach-Object { $_.FullName }
+    } else {
+        Write-Host "No media files found in C:\Users." -ForegroundColor Green
+    }
+
+    # Detect unwanted/bad apps
+    Write-Host "Scanning for unwanted applications..." -ForegroundColor Cyan
+    $badApps = @("Wireshark", "CCleaner", "Npcap", "PC Cleaner", "Network Stumbler", "L0phtCrack", "JDownloader", "Minesweeper", "Game", "Cleaner")
+    $installedApps = Get-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*", "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*" -ErrorAction SilentlyContinue | Select-Object DisplayName
+    $unwantedFound = @()
+    foreach ($app in $installedApps) {
+        if ($app.DisplayName) {
+            foreach ($badApp in $badApps) {
+                if ($app.DisplayName -like "*$badApp*") {
+                    $unwantedFound += $app.DisplayName
+                }
+            }
         }
     }
+    if ($unwantedFound) {
+        Write-Host "Found the following unwanted applications:" -ForegroundColor Yellow
+        $unwantedFound | ForEach-Object { Write-Host "- $_" }
+    } else {
+        Write-Host "No unwanted applications found." -ForegroundColor Green
+    }
 }
-if (-not $unwantedFound) {
-    "No unwanted applications found." | Out-File $diagnosticsFile -Append
+catch {
+    Write-Host "An error occurred: $($_.Exception.Message)" -ForegroundColor Red
 }
-"" | Out-File $diagnosticsFile -Append
-
-# Complete the script
-Write-Host "Script completed. Check 'diagnostics3.txt' for results." -ForegroundColor Green
-"=== Script completed on: $(Get-Date) ===" | Out-File $diagnosticsFile -Append
+finally {
+    Write-Verbose "Step 3 script finished."
+    Stop-Transcript
+}

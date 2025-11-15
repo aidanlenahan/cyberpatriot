@@ -1,100 +1,122 @@
-# PowerShell Script: diagnostics7.ps1
-# Creates diagnostics7.txt and logs changes, appending each time the script is run.
+<#
+.SYNOPSIS
+    Completes Step 7 of the Windows CyberPatriot checklist.
+    This script performs various system diagnostics and forensic checks.
 
-$diagnosticsFile = ".\diagnostics7.txt"
+.DESCRIPTION
+    This script gathers information about the system for security analysis. It checks for suspicious processes,
+    open network ports, FTP services, and scheduled tasks. It also retrieves recent event logs and disables the SMBv1 protocol.
+    All findings are logged to a transcript file.
 
-# Function to write to diagnostics file in a neat format
-function Write-Diagnostics {
-    param (
-        [string]$text
-    )
-    Add-Content -Path $diagnosticsFile -Value "`n$text"
+.NOTES
+    Author: Gemini
+    Date: 2025-11-15
+#>
+[CmdletBinding()]
+param()
+
+# Start logging
+$LogPath = "C:\CyberPatriot\Logs"
+if (-not (Test-Path $LogPath)) {
+    New-Item -Path $LogPath -ItemType Directory -Force | Out-Null
 }
+Start-Transcript -Path "$LogPath\step7-log.txt" -Append
 
-# Start logging the script's actions
-Write-Diagnostics "Script Execution Started - $(Get-Date)"
+try {
+    # --- Check for Suspicious Processes ---
+    function Check-SuspiciousProcesses {
+        Write-Host "Checking for suspicious processes..." -ForegroundColor Cyan
+        $suspiciousProcesses = @("nc", "netcat", "ncat", "powershell", "wmic", "vncviewer", "teamviewer", "anydesk", "xmr-stak", "kismet", "wireshark", "putty")
+        $runningProcesses = Get-Process | Where-Object { $suspiciousProcesses -contains $_.ProcessName.ToLower() }
+        if ($runningProcesses) {
+            Write-Host "Found suspicious processes:" -ForegroundColor Yellow
+            $runningProcesses | Format-Table -AutoSize
+        } else {
+            Write-Host "No suspicious processes found." -ForegroundColor Green
+        }
+    }
 
-# ------------------- Check for Suspicious Processes -------------------
-$suspiciousProcesses = @("nc.exe", "powershell.exe", "wmic.exe", "vncviewer.exe", "teamviewer.exe", "anydesk.exe", "xmr-stak.exe", "kismet.exe")
+    # --- Check for Open Ports ---
+    function Check-OpenPorts {
+        Write-Host "Checking for listening ports..." -ForegroundColor Cyan
+        $openPorts = Get-NetTCPConnection -State Listen
+        if ($openPorts) {
+            Write-Host "Listening ports:"
+            $openPorts | Format-Table -AutoSize
+        } else {
+            Write-Host "No listening ports found." -ForegroundColor Green
+        }
+    }
 
-$runningProcesses = Get-Process | Where-Object { $suspiciousProcesses -contains $_.Name }
+    # --- Check for FTP Services ---
+    function Check-FTP Services {
+        Write-Host "Checking for FTP services..." -ForegroundColor Cyan
+        $ftpServices = Get-Service | Where-Object { $_.Name -like "*ftp*" }
+        if ($ftpServices) {
+            Write-Host "Found FTP-related services:" -ForegroundColor Yellow
+            $ftpServices | Format-Table -AutoSize
+        } else {
+            Write-Host "No FTP services found." -ForegroundColor Green
+        }
+    }
 
-if ($runningProcesses) {
-    Write-Diagnostics "Suspicious Processes Found:"
-    $runningProcesses | ForEach-Object { Write-Diagnostics "Process: $($_.Name)" }
-} else {
-    Write-Diagnostics "No suspicious processes found."
+    # --- Log Scheduled Tasks ---
+    function Log-ScheduledTasks {
+        Write-Host "Listing scheduled tasks..." -ForegroundColor Cyan
+        $scheduledTasks = Get-ScheduledTask | Where-Object { $_.State -ne "Disabled" }
+        if ($scheduledTasks) {
+            Write-Host "Enabled scheduled tasks:"
+            $scheduledTasks | Format-Table -AutoSize
+        } else {
+            Write-Host "No enabled scheduled tasks found." -ForegroundColor Green
+        }
+    }
+
+    # --- Log Recent Event Logs ---
+    function Log-RecentEvents {
+        Write-Host "Retrieving recent security event logs..." -ForegroundColor Cyan
+        $events = Get-WinEvent -LogName Security -MaxEvents 20 -ErrorAction SilentlyContinue
+        if ($events) {
+            Write-Host "Recent security events:"
+            $events | Format-Table TimeCreated, Id, Message -Wrap -AutoSize
+        } else {
+            Write-Host "Could not retrieve recent security event logs." -ForegroundColor Yellow
+        }
+    }
+
+    # --- Disable SMBv1 ---
+    function Disable-SMBv1 {
+        Write-Host "Disabling SMBv1 protocol..." -ForegroundColor Cyan
+        try {
+            $feature = Get-WindowsOptionalFeature -Online -FeatureName SMB1Protocol
+            if ($feature.State -ne "Disabled") {
+                Disable-WindowsOptionalFeature -Online -FeatureName "SMB1Protocol" -NoRestart -Force
+                $feature = Get-WindowsOptionalFeature -Online -FeatureName SMB1Protocol
+                if ($feature.State -eq "Disabled") {
+                    Write-Host "SMBv1 has been disabled." -ForegroundColor Green
+                } else {
+                    Write-Host "SMBv1 disable command was run, but the feature is not in a disabled state. A reboot may be required." -ForegroundColor Yellow
+                }
+            } else {
+                Write-Host "SMBv1 is already disabled." -ForegroundColor Green
+            }
+        } catch {
+            Write-Host "Error disabling SMBv1: $($_.Exception.Message)" -ForegroundColor Red
+        }
+    }
+
+    # --- Execute all checks ---
+    Check-SuspiciousProcesses
+    Check-OpenPorts
+    Check-FTP Services
+    Log-ScheduledTasks
+    Log-RecentEvents
+    Disable-SMBv1
 }
-
-# ------------------- Check for Open Ports -------------------
-$openPorts = Get-NetTCPConnection | Where-Object { $_.State -eq 'Listen' }
-
-if ($openPorts) {
-    Write-Diagnostics "Suspicious Open Ports:"
-    $openPorts | ForEach-Object { Write-Diagnostics "Port: $($_.LocalPort) on IP: $($_.LocalAddress)" }
-} else {
-    Write-Diagnostics "No suspicious open ports found."
+catch {
+    Write-Host "An error occurred: $($_.Exception.Message)" -ForegroundColor Red
 }
-
-# ------------------- Check for FTP Services -------------------
-$ftpServices = Get-Service | Where-Object { $_.Name -match "ftp|ftpd|vsftpd|proftpd" }
-
-if ($ftpServices) {
-    Write-Diagnostics "FTP Services Found:"
-    $ftpServices | ForEach-Object { Write-Diagnostics "Service: $($_.Name) - Status: $($_.Status)" }
-} else {
-    Write-Diagnostics "No FTP services found."
+finally {
+    Write-Verbose "Step 7 script finished."
+    Stop-Transcript
 }
-
-# ------------------- Log Scheduled Tasks -------------------
-$scheduledTasks = Get-ScheduledTask | Where-Object { $_.State -eq "Ready" }
-
-if ($scheduledTasks) {
-    Write-Diagnostics "Scheduled Tasks Found:"
-    $scheduledTasks | ForEach-Object { Write-Diagnostics "Task: $($_.TaskName) - Status: $($_.State)" }
-} else {
-    Write-Diagnostics "No scheduled tasks found."
-}
-
-# ------------------- Log Recent Event Logs -------------------
-$eventLogs = Get-WinEvent -LogName Application, System -MaxEvents 10
-
-if ($eventLogs) {
-    Write-Diagnostics "Recent Event Logs:"
-    $eventLogs | ForEach-Object { Write-Diagnostics "Event ID: $($_.Id) - Message: $($_.Message)" }
-} else {
-    Write-Diagnostics "No recent event logs found."
-}
-
-# ------------------- Disable SMBv1 -------------------
-Write-Diagnostics "Disabling SMBv1 Protocol to prevent remote exploitation..."
-$disableSMBv1 = Disable-WindowsOptionalFeature -Online -FeatureName "SMB1Protocol" -NoRestart
-
-if ($disableSMBv1) {
-    Write-Diagnostics "SMBv1 has been successfully disabled."
-} else {
-    Write-Diagnostics "Failed to disable SMBv1."
-}
-
-# ------------------- Check for Suspicious Processes Using ProcessLibrary -------------------
-Write-Diagnostics "Checking for additional suspicious processes using https://www.processlibrary.com/..."
-
-# Get the list of running processes
-$processList = Get-Process | Select-Object -ExpandProperty Name
-
-Write-Diagnostics "List of running processes to check at https://www.processlibrary.com/ for suspicious activity:"
-$processList | ForEach-Object { Write-Diagnostics $_ }
-
-# ------------------- End of Script -------------------
-Write-Diagnostics "Script Execution Ended - $(Get-Date)"
-Write-Diagnostics "End of Diagnostics"
-
-# Additional security suggestions (for you to decide if you'd like to add them to the script):
-# 1. Enforce strong password policies and 2FA
-# 2. Disable unnecessary services such as RDP if not required
-# 3. Enable Windows Defender and update regularly
-# 4. Implement a firewall rule to restrict inbound connections
-# 5. Monitor for abnormal network traffic with tools like Wireshark
-# 6. Install an intrusion detection system (IDS) like Snort
-
-# Note: You can implement these additional measures based on your needs.
