@@ -1,109 +1,178 @@
-# Linux CyberPatriot Image Hardening
+# Linux CyberPatriot Master Bible Scripts
 
-This guide provides a step-by-step approach to hardening a Windows CyberPatriot image for security. Each step includes specific tasks and scripts aimed at improving the security posture of the system. Below is an overview of the steps, resources, and tasks involved.
+This directory contains bash scripts that are equivalent to the PowerShell scripts in the Windows and Win-Server branches. Each script performs specific security hardening tasks for Linux systems in CyberPatriot competitions.
 
-[Source Document](https://example.com)
+## Scripts Overview
 
----
+### Step 1: Initialization (`step1.sh`)
+**Purpose:** System initialization and documentation
 
-## Step 0 - Initial Setup
-### Tasks:
-- **Create Required Groups:** Set up the necessary user groups.
-- **Create Required Users:** Create the required user accounts.
-- **Install Necessary Programs:** Ensure all required software is installed on the system.
+**Actions:**
+- Configures file manager to show hidden files
+- Documents current system state (users, groups, services, network)
+- Creates backup directory structure
+- Backs up critical configuration files
+- Generates initial diagnostics report
 
----
+**Output:** `diagnostics1.txt`
 
-## [Step 1 - Initialization](https://example.com)
-### Tasks:
-1. **Set Script Execution Policy:**
-   - Make `.ps1` scripts executable with the command:
-     ```powershell
-     Set-ExecutionPolicy Unrestricted -Scope LocalMachine
-     ```
-2. **View Hidden Files:**
-   - Enable the visibility of all hidden files.
-3. **Enable File Extension Editing:**
-   - Allow file extensions to be editable.
-4. **Answer Forensics Questions:**
-   - Complete any provided forensics questions.
+### Step 3: Basic Security (`step3.sh`)
+**Purpose:** Core security configurations
 
----
+**Actions:**
+- Enables and configures UFW firewall
+- Enables automatic security updates
+- Lists all file shares (Samba/NFS)
+- Scans for media files in /home
+- Detects unwanted/prohibited applications
+- Checks security modules status (AppArmor/SELinux)
 
-## Step 2 - Forensics Tools
-### Recommended Resources:
-- **CyberChef**
-- **ChatGPT**
-- **Cryptii**
-- **GitHub Copilot**
+**Output:** `diagnostics3.txt`
 
----
+### Step 4: Users and Groups (`step4.sh`)
+**Purpose:** User and group management
 
-## [Step 3 - Basic Security](https://example.com)
-### Tasks:
-1. **Enable Firewall:**
-   - Ensure the firewall is turned on.
-2. **Enable Real-Time Protection:**
-   - Verify that real-time protection is enabled.
-3. **Remove Bad Shares:**
-   - Remove any unnecessary network shares (except `ADMIN$`, `IPC$`, and `C$`).
-4. **Remove Unwanted Software:**
-   - Uninstall unnecessary or insecure software, including:
-     - Wireshark, CCleaner, Npcap, PC Cleaner, Network Stumbler, L0phtCrack, JDownloader, Minesweeper, and other games.
-5. **Remove Unwanted Files:**
-   - Delete unnecessary media and document files, including:
-     - Audio/Video: mp3, mp4, mov, wav, aac, flac, mkv
-     - Images: png, jpeg, jpg, gif, tiff, bmp
-     - Documents: pdf, doc, docx
-6. **Configure In-Browser Security:**
-   - Use the most secure DNS and ensure HTTPS is always used.
+**Actions:**
+- Creates authusers.txt template if not exists
+- Disables unauthorized user accounts
+- Manages sudo/wheel group membership
+- Disables guest account
+- Configures password policies (aging, complexity)
+- Sets up account lockout policies
 
----
+**Output:** `diagnostics4.txt`
+**Requires:** `authusers.txt` (created on first run)
 
-## [Step 4 - Users and Groups](https://example.com)
-### Tasks:
-1. **Disable Unauthorized Users:**
-   - Use **Computer Management** to disable any unauthorized users.
-2. **Verify Admin Group Settings:**
-   - Ensure the "Password Never Expires" option is turned **OFF** for all admin users.
-3. **Disable Guest and Administrator Accounts:**
-   - Make sure both the **Guest** account and **Administrator** account are disabled.
+### Step 5: Services (`step5.sh`)
+**Purpose:** Service management and hardening
 
-#### How to Execute This Script:
-1. **Run the script `step4.ps1` first.** It will create a template file named `authusers.txt` in the same directory.
-2. **Format the user list:** Use ChatGPT with the provided prompt to convert the readme user list into the format recognized by the script.
-3. **Copy ChatGPT’s Output to `authusers.txt`.**
-4. **Run `step4.ps1` again** to apply changes.
-5. **Check `diagnostics4.txt`** for updates.
+**Actions:**
+- Checks and disables dangerous services (FTP, Telnet, etc.)
+- Secures SSH configuration
+- Documents all listening ports
+- Lists enabled services for review
+- Disables unnecessary network services
 
----
+**Output:** `diagnostics5.txt`
 
-## [Step 5 - Services](https://example.com)
-### Tasks:
-- **Disable Unnecessary Services:** Disable the following services:
-  - Remote Registry
-  - Remote Desktop Services
-  - Telephony
-  - FTP (Windows FTP)
-  - SNMP Trap
-  - SMTP
-  - Infrared Monitor Service
-  - Plug and Play
+### Step 6: Miscellaneous (`step6.sh`)
+**Purpose:** Additional security configurations (Interactive)
 
----
+**Options:**
+1. Disable remote access services (VNC, RDP)
+2. Check for unusual open ports
+3. Enable automatic security updates
+4. Configure security baseline (auditd, sysctl)
+5. Disable web server services
+6. Secure SSH service
+A. Perform ALL actions
 
-## [Step 6 - Miscellaneous](https://example.com)
-### Tasks:
-1. **Disable All RDP (Remote Desktop Protocol):**
-   - Ensure RDP is disabled to prevent remote access vulnerabilities.
-2. **Check for Open Ports:**
-   - Identify and close any unnecessary open ports.
-3. **Enable Automatic Windows Updates:**
-   - Configure updates through **Group Policy Editor (gpedit.msc)**.
-4. **Apply Windows Security Policies (SecPol):**
-   - Use **MMC** (Microsoft Management Console) to configure security policies with `.inf` files.
+**Output:** `diagnostics6.txt`
 
----
+### Step 7: Points Hunting (`step7.sh`)
+**Purpose:** Comprehensive security audit and additional hardening
+
+**Actions:**
+- Checks for suspicious processes
+- Identifies unusual open ports
+- Detects prohibited services
+- Reviews cron jobs and scheduled tasks
+- Lists authentication failures
+- Finds world-writable files
+- Identifies SUID/SGID files
+- Reviews password policies
+- Checks for empty passwords
+- Examines IPv6 configuration
+- Audits firewall status
+- Lists recently installed packages
+- Checks shared memory security
+- Identifies network-connected processes
+
+**Output:** `diagnostics7.txt`
+
+## Usage
+
+### Prerequisites
+- Run all scripts with appropriate permissions (most require sudo)
+- Scripts should be run in order (1, 3, 4, 5, 6, 7)
+- Step 2 is intentionally excluded (forensics)
+
+### Running Scripts
+
+```bash
+# Make scripts executable (if not already)
+chmod +x step*.sh
+
+# Run each script in order
+sudo ./step1.sh
+sudo ./step3.sh
+sudo ./step4.sh   # Edit authusers.txt first!
+sudo ./step5.sh
+sudo ./step6.sh   # Interactive - select options
+sudo ./step7.sh
+```
+
+### Important Notes
+
+1. **Step 4 requires manual configuration:**
+   - First run creates `authusers.txt` template
+   - Edit this file with actual authorized users
+   - Run the script again after editing
+
+2. **Step 6 is interactive:**
+   - Presents a menu of options
+   - Choose individual actions or 'A' for all
+
+3. **All scripts generate diagnostics files:**
+   - Review these files for detailed information
+   - Use them to verify changes were applied
+
+4. **Logging:**
+   - Step 1 creates logs in `/var/log/cyberpatriot/`
+   - All steps create diagnostics in the current directory
+
+## Diagnostics Files
+
+Each script generates a diagnostics file that contains:
+- Timestamp of execution
+- Actions performed
+- Current system state
+- Issues found
+- Recommendations
+
+Review these files carefully to:
+- Verify script actions
+- Identify security issues
+- Track changes made
+- Find points opportunities
+
+## Safety
+
+- Scripts backup important files before making changes
+- Step 1 creates backups in `backups/` directory
+- Original configurations are preserved
+- Most actions are reversible
+
+## Compatibility
+
+Scripts are designed to work on:
+- Ubuntu 18.04+
+- Debian 10+
+- RedHat/CentOS 7+
+- Other systemd-based distributions
+
+Some features may require specific packages or may not work on all distributions.
+
+## Based On
+
+These bash scripts are equivalents of the PowerShell scripts in:
+- `windows` branch - step1.ps1 through step7.ps1 (excluding step2)
+- `win-server` branch - enhanced versions with better logging
+
+## Author
+
+Created for CyberPatriot competition Linux image hardening.
 
 ## License
-This guide is designed for use in CyberPatriot competitions and may be adapted for other cybersecurity competitions or educational purposes.
+
+For educational and CyberPatriot competition use.
