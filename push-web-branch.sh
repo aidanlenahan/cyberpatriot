@@ -17,7 +17,6 @@ if ! git rev-parse --verify web >/dev/null 2>&1; then
     echo "Error: 'web' branch does not exist locally."
     echo "Creating it from copilot/create-web-files-for-readme..."
     git checkout -b web copilot/create-web-files-for-readme
-    git checkout copilot/create-web-files-for-readme
 fi
 
 echo "Pushing the 'web' branch to origin..."
