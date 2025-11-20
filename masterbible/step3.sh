@@ -182,8 +182,7 @@ log_diagnostics "=== Security Modules Status ==="
 
 # Check AppArmor
 if command -v aa-status &> /dev/null; then
-    apparmor_status=$(sudo aa-status --enabled 2>&1)
-    if [ $? -eq 0 ]; then
+    if sudo aa-status --enabled 2>&1; then
         log_diagnostics "✓ AppArmor is enabled"
     else
         log_diagnostics "⚠ AppArmor is not enabled"
