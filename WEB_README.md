@@ -24,13 +24,25 @@ Simply open any of the HTML files in a web browser to view the formatted documen
 
 ## Branch Information
 
-A "web" branch has been created locally with all the HTML/CSS files. To push it to the repository, run:
+A "web" branch has been created locally in this repository with all the HTML/CSS files. 
+
+### To Create the Web Branch on GitHub:
+
+The web branch exists locally but needs to be pushed to GitHub. You can do this by running:
 
 ```bash
-git push origin copilot/create-web-files-for-readme:web
+# Option 1: Push using the helper script
+./push-web-branch.sh
+
+# Option 2: Push manually
+git push origin web:web
 ```
 
-This will create the "web" branch on GitHub with all the HTML/CSS documentation files.
+This will create the "web" branch on GitHub at: `https://github.com/aidanlenahan/cyberpatriot/tree/web`
+
+### What's in the Web Branch?
+
+The web branch contains the exact same HTML/CSS files that are in this PR, minus the documentation files (WEB_README.md and push-web-branch.sh). It's a clean branch with just the web content.
 
 ## Preview
 
