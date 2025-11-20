@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows CyberPatriot Image Hardening</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Windows CyberPatriot Image Hardening</h1>
+            <p class="subtitle">Comprehensive security hardening guide for Windows systems</p>
+        </header>
+
+        <main>
+            <section class="intro">
+                <p>This guide provides a step-by-step approach to hardening a Windows CyberPatriot image for security. Each step includes specific tasks and scripts aimed at improving the security posture of the system. Below is an overview of the steps, resources, and tasks involved.</p>
+                <p><a href="https://docs.google.com/document/d/e/2PACX-1vT2zjA8CaPWgSmMfjuAQXL91jd2ioXfFl3J_zvzhtXNg7lFbNFENRbakHlqrodOCvrJ8hJ_O5YRnCyt/pub" target="_blank">Source Document</a></p>
+            </section>
+
+            <div class="task-section">
+                <h2>Step 0 - Initial Setup</h2>
+                <h3>Tasks:</h3>
+                <ul>
+                    <li><strong>Create Required Groups:</strong> Set up the necessary user groups.</li>
+                    <li><strong>Create Required Users:</strong> Create the required user accounts.</li>
+                    <li><strong>Install Necessary Programs:</strong> Ensure all required software is installed on the system.</li>
+                </ul>
+            </div>
+
+            <div class="task-section">
+                <h2><a href="https://raw.githubusercontent.com/aidanlenahan/dev/refs/heads/main/ps/cyberpatriot/masterbible24-25/windows/step1.ps1" target="_blank">Step 1 - Initialization</a></h2>
+                <h3>Tasks:</h3>
+                <ol>
+                    <li><strong>Set Script Execution Policy:</strong>
+                        <br>Make <code>.ps1</code> scripts executable with the command:
+                        <pre><code>Set-ExecutionPolicy Unrestricted -Scope LocalMachine</code></pre>
+                    </li>
+                    <li><strong>View Hidden Files:</strong> Enable the visibility of all hidden files.</li>
+                    <li><strong>Enable File Extension Editing:</strong> Allow file extensions to be editable.</li>
+                    <li><strong>Answer Forensics Questions:</strong> Complete any provided forensics questions.</li>
+                </ol>
+            </div>
+
+            <div class="task-section">
+                <h2>Step 2 - Forensics Tools</h2>
+                <h3>Recommended Resources:</h3>
+                <ul class="resources-list">
+                    <li>CyberChef</li>
+                    <li>ChatGPT</li>
+                    <li>Cryptii</li>
+                    <li>GitHub Copilot</li>
+                </ul>
+            </div>
+
+            <div class="task-section">
+                <h2><a href="https://raw.githubusercontent.com/aidanlenahan/dev/refs/heads/main/ps/cyberpatriot/masterbible24-25/windows/step3.ps1" target="_blank">Step 3 - Basic Security</a></h2>
+                <h3>Tasks:</h3>
+                <ol>
+                    <li><strong>Enable Firewall:</strong> Ensure the firewall is turned on.</li>
+                    <li><strong>Enable Real-Time Protection:</strong> Verify that real-time protection is enabled.</li>
+                    <li><strong>Remove Bad Shares:</strong> Remove any unnecessary network shares (except <code>ADMIN$</code>, <code>IPC$</code>, and <code>C$</code>).</li>
+                    <li><strong>Remove Unwanted Software:</strong> Uninstall unnecessary or insecure software, including:
+                        <ul>
+                            <li>Wireshark, CCleaner, Npcap, PC Cleaner, Network Stumbler, L0phtCrack, JDownloader, Minesweeper, and other games.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Remove Unwanted Files:</strong> Delete unnecessary media and document files, including:
+                        <ul>
+                            <li>Audio/Video: mp3, mp4, mov, wav, aac, flac, mkv</li>
+                            <li>Images: png, jpeg, jpg, gif, tiff, bmp</li>
+                            <li>Documents: pdf, doc, docx</li>
+                        </ul>
+                    </li>
+                    <li><strong>Configure In-Browser Security:</strong> Use the most secure DNS and ensure HTTPS is always used.</li>
+                </ol>
+            </div>
+
+            <div class="task-section">
+                <h2><a href="https://raw.githubusercontent.com/aidanlenahan/dev/refs/heads/main/ps/cyberpatriot/masterbible24-25/windows/step4.ps1" target="_blank">Step 4 - Users and Groups</a></h2>
+                <h3>Tasks:</h3>
+                <ol>
+                    <li><strong>Disable Unauthorized Users:</strong> Use <strong>Computer Management</strong> to disable any unauthorized users.</li>
+                    <li><strong>Verify Admin Group Settings:</strong> Ensure the "Password Never Expires" option is turned <strong>OFF</strong> for all admin users.</li>
+                    <li><strong>Disable Guest and Administrator Accounts:</strong> Make sure both the <strong>Guest</strong> account and <strong>Administrator</strong> account are disabled.</li>
+                </ol>
+                <h3>How to Execute This Script:</h3>
+                <ol>
+                    <li><strong>Run the script <code>step4.ps1</code> first.</strong> It will create a template file named <code>authusers.txt</code> in the same directory.</li>
+                    <li><strong>Format the user list:</strong> Use ChatGPT with the provided prompt to convert the readme user list into the format recognized by the script.</li>
+                    <li><strong>Copy ChatGPT's Output to <code>authusers.txt</code>.</strong></li>
+                    <li><strong>Run <code>step4.ps1</code> again</strong> to apply changes.</li>
+                    <li><strong>Check <code>diagnostics4.txt</code></strong> for updates.</li>
+                </ol>
+            </div>
+
+            <div class="task-section">
+                <h2><a href="https://raw.githubusercontent.com/aidanlenahan/dev/refs/heads/main/ps/cyberpatriot/masterbible24-25/windows/step5.ps1" target="_blank">Step 5 - Services</a></h2>
+                <h3>Tasks:</h3>
+                <p><strong>Disable Unnecessary Services:</strong> Disable the following services:</p>
+                <ul>
+                    <li>Remote Registry</li>
+                    <li>Remote Desktop Services</li>
+                    <li>Telephony</li>
+                    <li>FTP (Windows FTP)</li>
+                    <li>SNMP Trap</li>
+                    <li>SMTP</li>
+                    <li>Infrared Monitor Service</li>
+                    <li>Plug and Play</li>
+                </ul>
+            </div>
+
+            <div class="task-section">
+                <h2><a href="https://raw.githubusercontent.com/aidanlenahan/dev/refs/heads/main/ps/cyberpatriot/masterbible24-25/windows/step6.ps1" target="_blank">Step 6 - Miscellaneous</a></h2>
+                <h3>Tasks:</h3>
+                <ol>
+                    <li><strong>Disable All RDP (Remote Desktop Protocol):</strong> Ensure RDP is disabled to prevent remote access vulnerabilities.</li>
+                    <li><strong>Check for Open Ports:</strong> Identify and close any unnecessary open ports.</li>
+                    <li><strong>Enable Automatic Windows Updates:</strong> Configure updates through <strong>Group Policy Editor (gpedit.msc)</strong>.</li>
+                    <li><strong>Apply Windows Security Policies (SecPol):</strong> Use <strong>MMC</strong> (Microsoft Management Console) to configure security policies with <code>.inf</code> files.</li>
+                </ol>
+            </div>
+
+            <section class="note-section">
+                <h2>Common Problems</h2>
+                <p>After applying the INF part of step 6, it may be difficult to install <code>.exe</code> or <code>.msi</code>. If this is the case, use <code>msiexec /i "C:\path\to\package.msi"</code> in an admin Command Prompt, and it will install just fine.</p>
+            </section>
+
+            <section class="license-section">
+                <h2>License</h2>
+                <p>This guide is designed for use in CyberPatriot competitions and may be adapted for other cybersecurity competitions or educational purposes.</p>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 CyberPatriot Security Guides</p>
+        </footer>
+    </div>
+</body>
+</html>
