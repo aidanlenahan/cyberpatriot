@@ -92,7 +92,15 @@ for user in $system_users; do
     fi
     
     # Check if user is in authorized list
-    if [[ ! " ${auth_users[@]} " =~ " ${user} " ]]; then
+    user_found=0
+    for auth_user in "${auth_users[@]}"; do
+        if [ "$user" = "$auth_user" ]; then
+            user_found=1
+            break
+        fi
+    done
+    
+    if [ $user_found -eq 0 ]; then
         # Lock/disable user
         sudo passwd -l "$user" > /dev/null 2>&1
         sudo usermod -s /usr/sbin/nologin "$user" > /dev/null 2>&1
@@ -119,7 +127,15 @@ current_admins=$(getent group "$ADMIN_GROUP" | cut -d: -f4 | tr ',' ' ')
 
 # Remove users from admin group if not in admin list
 for admin in $current_admins; do
-    if [[ ! " ${admin_users[@]} " =~ " ${admin} " ]]; then
+    admin_found=0
+    for admin_user in "${admin_users[@]}"; do
+        if [ "$admin" = "$admin_user" ]; then
+            admin_found=1
+            break
+        fi
+    done
+    
+    if [ $admin_found -eq 0 ]; then
         sudo gpasswd -d "$admin" "$ADMIN_GROUP" > /dev/null 2>&1
         log_diagnostics "Removed user $admin from $ADMIN_GROUP group."
     fi
@@ -194,7 +210,15 @@ if [ -f /etc/pam.d/common-auth ]; then
        ! grep -q "pam_tally2" /etc/pam.d/common-auth 2>/dev/null; then
         
         # Try to use pam_faillock (newer)
-        if [ -f /lib/*/security/pam_faillock.so ] || [ -f /lib64/security/pam_faillock.so ]; then
+        pam_faillock_found=0
+        for libdir in /lib/x86_64-linux-gnu/security /lib64/security /lib/security; do
+            if [ -f "$libdir/pam_faillock.so" ]; then
+                pam_faillock_found=1
+                break
+            fi
+        done
+        
+        if [ $pam_faillock_found -eq 1 ]; then
             log_diagnostics "Note: Account lockout configuration requires manual PAM configuration"
             log_diagnostics "Consider adding pam_faillock with deny=5 unlock_time=1800"
         fi
