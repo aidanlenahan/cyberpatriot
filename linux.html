@@ -15,12 +15,159 @@
 
         <main>
             <section class="intro">
-                <p>This guide provides a step-by-step approach to hardening a Linux CyberPatriot image for security using Bash scripts. The main.sh script gets to 100 points on tr2 ubuntu.</p>
+                <p>This guide provides a step-by-step approach to hardening a Linux CyberPatriot image for security using Bash scripts. Each step includes specific tasks and scripts aimed at improving the security posture of the system. Below is an overview of the steps, resources, and tasks involved.</p>
+                <p><a href="https://github.com/aidanlenahan/cyberpatriot/tree/linux" target="_blank">Source Repository</a></p>
             </section>
 
-            <section class="guide-section">
-                <h2>Overview</h2>
-                <p>The Linux security hardening guide includes comprehensive steps for securing Ubuntu and other Linux systems used in CyberPatriot competitions.</p>
+            <div class="task-section">
+                <h2>Step 0 - Initial Setup</h2>
+                <h3>Tasks:</h3>
+                <ul>
+                    <li><strong>Create Required Groups:</strong> Set up the necessary user groups.</li>
+                    <li><strong>Create Required Users:</strong> Create the required user accounts.</li>
+                    <li><strong>Install Necessary Programs:</strong> Ensure all required software is installed on the system.</li>
+                </ul>
+            </div>
+
+            <div class="task-section">
+                <h2><a href="https://raw.githubusercontent.com/aidanlenahan/cyberpatriot/refs/heads/linux/masterbible/step1.sh" target="_blank">Step 1 - Initialization</a></h2>
+                <h3>Tasks:</h3>
+                <ol>
+                    <li><strong>Configure File Manager:</strong> Set file manager to show hidden files for better visibility.</li>
+                    <li><strong>Document System State:</strong> Record current users, groups, services, and network configuration.</li>
+                    <li><strong>Create Backup Structure:</strong> Set up backup directories and backup critical configuration files.</li>
+                    <li><strong>Generate Diagnostics Report:</strong> Create initial diagnostics report.</li>
+                </ol>
+                <p><strong>Output:</strong> <code>diagnostics1.txt</code></p>
+            </div>
+
+            <div class="task-section">
+                <h2>Step 2 - Forensics Tools</h2>
+                <h3>Recommended Resources:</h3>
+                <ul class="resources-list">
+                    <li>CyberChef</li>
+                    <li>ChatGPT</li>
+                    <li>Cryptii</li>
+                    <li>GitHub Copilot</li>
+                </ul>
+            </div>
+
+            <div class="task-section">
+                <h2><a href="https://raw.githubusercontent.com/aidanlenahan/cyberpatriot/refs/heads/linux/masterbible/step3.sh" target="_blank">Step 3 - Basic Security</a></h2>
+                <h3>Tasks:</h3>
+                <ol>
+                    <li><strong>Enable Firewall:</strong> Configure and enable UFW firewall.</li>
+                    <li><strong>Enable Automatic Security Updates:</strong> Configure the system to automatically apply security updates.</li>
+                    <li><strong>List File Shares:</strong> Identify all Samba/NFS shares.</li>
+                    <li><strong>Scan for Media Files:</strong> Locate unauthorized media files in /home directories:
+                        <ul>
+                            <li>Audio/Video: mp3, mp4, mov, wav, aac, flac, mkv</li>
+                            <li>Images: png, jpeg, jpg, gif, tiff, bmp</li>
+                            <li>Documents: pdf, doc, docx</li>
+                        </ul>
+                    </li>
+                    <li><strong>Detect Unwanted Applications:</strong> Identify prohibited software like Wireshark, Nmap, JDownloader, and games.</li>
+                    <li><strong>Check Security Modules:</strong> Verify AppArmor/SELinux status.</li>
+                </ol>
+                <p><strong>Output:</strong> <code>diagnostics3.txt</code></p>
+            </div>
+
+            <div class="task-section">
+                <h2><a href="https://raw.githubusercontent.com/aidanlenahan/cyberpatriot/refs/heads/linux/masterbible/step4.sh" target="_blank">Step 4 - Users and Groups</a></h2>
+                <h3>Tasks:</h3>
+                <ol>
+                    <li><strong>Disable Unauthorized Users:</strong> Identify and disable any unauthorized user accounts.</li>
+                    <li><strong>Manage Sudo Permissions:</strong> Verify sudo/wheel group membership is correct.</li>
+                    <li><strong>Disable Guest Account:</strong> Ensure the guest account is disabled.</li>
+                    <li><strong>Configure Password Policies:</strong> Set password aging, complexity requirements, and account lockout policies.</li>
+                </ol>
+                <h3>How to Execute This Script:</h3>
+                <ol>
+                    <li><strong>Run the script <code>step4.sh</code> first.</strong> It will create a template file named <code>authusers.txt</code> in the same directory.</li>
+                    <li><strong>Edit <code>authusers.txt</code></strong> with the list of authorized users from the README.</li>
+                    <li><strong>Run <code>step4.sh</code> again</strong> to apply changes.</li>
+                    <li><strong>Check <code>diagnostics4.txt</code></strong> for updates.</li>
+                </ol>
+                <p><strong>Output:</strong> <code>diagnostics4.txt</code></p>
+            </div>
+
+            <div class="task-section">
+                <h2><a href="https://raw.githubusercontent.com/aidanlenahan/cyberpatriot/refs/heads/linux/masterbible/step5.sh" target="_blank">Step 5 - Services</a></h2>
+                <h3>Tasks:</h3>
+                <p><strong>Disable Unnecessary Services:</strong> Check and disable the following dangerous services:</p>
+                <ul>
+                    <li>FTP (vsftpd)</li>
+                    <li>Telnet</li>
+                    <li>Remote Sync (rsyncd)</li>
+                    <li>Apache/Nginx (if not required)</li>
+                    <li>SNMP</li>
+                </ul>
+                <p><strong>Secure SSH Configuration:</strong> Review and harden SSH settings.</p>
+                <p><strong>Document Listening Ports:</strong> List all open ports and enabled services for review.</p>
+                <p><strong>Output:</strong> <code>diagnostics5.txt</code></p>
+            </div>
+
+            <div class="task-section">
+                <h2><a href="https://raw.githubusercontent.com/aidanlenahan/cyberpatriot/refs/heads/linux/masterbible/step6.sh" target="_blank">Step 6 - Miscellaneous (Interactive)</a></h2>
+                <h3>Options:</h3>
+                <ol>
+                    <li><strong>Disable Remote Access Services:</strong> Disable VNC and RDP services.</li>
+                    <li><strong>Check for Unusual Open Ports:</strong> Identify suspicious open ports.</li>
+                    <li><strong>Enable Automatic Security Updates:</strong> Configure automatic security updates.</li>
+                    <li><strong>Configure Security Baseline:</strong> Set up auditd and sysctl hardening.</li>
+                    <li><strong>Disable Web Server Services:</strong> Stop Apache/Nginx if not required.</li>
+                    <li><strong>Secure SSH Service:</strong> Apply strict SSH configuration.</li>
+                    <li><strong>A. Perform ALL Actions:</strong> Execute all security measures at once.</li>
+                </ol>
+                <p><strong>Note:</strong> This script is interactive. You can select individual options or choose 'A' to perform all actions.</p>
+                <p><strong>Output:</strong> <code>diagnostics6.txt</code></p>
+            </div>
+
+            <div class="task-section">
+                <h2><a href="https://raw.githubusercontent.com/aidanlenahan/cyberpatriot/refs/heads/linux/masterbible/step7.sh" target="_blank">Step 7 - Points Hunting</a></h2>
+                <h3>Tasks:</h3>
+                <p><strong>Comprehensive Security Audit:</strong></p>
+                <ul>
+                    <li>Check for suspicious processes</li>
+                    <li>Identify unusual open ports</li>
+                    <li>Detect prohibited services</li>
+                    <li>Review cron jobs and scheduled tasks</li>
+                    <li>List authentication failures</li>
+                    <li>Find world-writable files</li>
+                    <li>Identify SUID/SGID files</li>
+                    <li>Review password policies</li>
+                    <li>Check for empty passwords</li>
+                    <li>Examine IPv6 configuration</li>
+                    <li>Audit firewall status</li>
+                    <li>List recently installed packages</li>
+                    <li>Check shared memory security</li>
+                    <li>Identify network-connected processes</li>
+                </ul>
+                <p><strong>Output:</strong> <code>diagnostics7.txt</code></p>
+            </div>
+
+            <section class="note-section">
+                <h2>Important Notes</h2>
+                <ul>
+                    <li>Run all scripts with appropriate permissions (most require <code>sudo</code>).</li>
+                    <li>Scripts should be run in order (1, 3, 4, 5, 6, 7). Step 2 is intentionally excluded (forensics).</li>
+                    <li>Step 4 requires manual configuration of <code>authusers.txt</code> before running.</li>
+                    <li>Step 6 is interactive and presents a menu of options.</li>
+                    <li>All scripts generate diagnostics files - review these carefully to verify changes.</li>
+                    <li>Step 1 creates backups in <code>backups/</code> directory and logs in <code>/var/log/cyberpatriot/</code>.</li>
+                </ul>
+            </section>
+
+            <section class="note-section">
+                <h2>Compatibility</h2>
+                <p>Scripts are designed to work on:</p>
+                <ul>
+                    <li>Ubuntu 18.04+</li>
+                    <li>Debian 10+</li>
+                    <li>RedHat/CentOS 7+</li>
+                    <li>Other systemd-based distributions</li>
+                </ul>
+                <p>Some features may require specific packages or may not work on all distributions.</p>
             </section>
 
             <section class="license-section">
