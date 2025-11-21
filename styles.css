@@ -8,8 +8,8 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #f5f5f5;
+    color: #2c3e50;
+    background-color: #ecf0f1;
 }
 
 /* Container */
@@ -23,7 +23,7 @@ body {
 
 /* Header */
 header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
     color: white;
     padding: 3rem 2rem;
     text-align: center;
@@ -50,11 +50,11 @@ section {
 }
 
 h2 {
-    color: #667eea;
+    color: #34495e;
     font-size: 1.8rem;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid #e0e0e0;
+    border-bottom: 2px solid #bdc3c7;
 }
 
 p {
@@ -65,13 +65,13 @@ p {
 
 /* Links */
 a {
-    color: #667eea;
+    color: #2980b9;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 a:hover {
-    color: #764ba2;
+    color: #3498db;
     text-decoration: underline;
 }
 
@@ -94,34 +94,34 @@ a:hover {
 
 /* Guide Sections */
 .guide-section {
-    background-color: #fafafa;
+    background-color: #f8f9fa;
     padding: 1.5rem;
     border-radius: 8px;
-    border-left: 4px solid #667eea;
+    border-left: 4px solid #3498db;
 }
 
 /* Note Section */
 .note-section {
-    background-color: #fff3cd;
+    background-color: #fef5e7;
     padding: 1.5rem;
     border-radius: 8px;
-    border-left: 4px solid #ffc107;
+    border-left: 4px solid #f39c12;
 }
 
 /* License Section */
 .license-section {
-    background-color: #e8f5e9;
+    background-color: #e8f6f3;
     padding: 1.5rem;
     border-radius: 8px;
-    border-left: 4px solid #4caf50;
+    border-left: 4px solid #16a085;
 }
 
 /* Intro Section */
 .intro {
-    background-color: #e3f2fd;
+    background-color: #ebf5fb;
     padding: 1.5rem;
     border-radius: 8px;
-    border-left: 4px solid #2196f3;
+    border-left: 4px solid #5dade2;
 }
 
 /* Code blocks */
@@ -147,15 +147,15 @@ pre code {
 
 /* Task sections */
 .task-section {
-    background-color: #fafafa;
+    background-color: #f8f9fa;
     padding: 1.5rem;
     border-radius: 8px;
     margin-bottom: 1.5rem;
-    border-left: 4px solid #9c27b0;
+    border-left: 4px solid #7f8c8d;
 }
 
 .task-section h3 {
-    color: #9c27b0;
+    color: #34495e;
     font-size: 1.3rem;
     margin-bottom: 0.8rem;
 }
@@ -170,7 +170,7 @@ pre code {
 
 /* Footer */
 footer {
-    background-color: #333;
+    background-color: #2c3e50;
     color: white;
     text-align: center;
     padding: 1.5rem;
@@ -192,8 +192,25 @@ footer {
 
 .resources-list li::before {
     content: "→ ";
-    color: #667eea;
+    color: #3498db;
     font-weight: bold;
+}
+
+/* Button Styles */
+.button {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background-color: #3498db;
+    color: white !important;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.button:hover {
+    background-color: #2980b9;
+    text-decoration: none;
 }
 
 /* Responsive Design */
