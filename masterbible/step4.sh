@@ -227,6 +227,26 @@ if [ -f /etc/pam.d/common-auth ]; then
     fi
 fi
 
+# ==========================
+# SET PASSWORDS FOR AUTHORIZED HUMAN USERS
+# ==========================
+
+DEFAULT_PASS="RBR02-CyberP@triot-2024rbr"
+
+log_diagnostics ""
+log_diagnostics "=== Setting Passwords for Authorized Users ==="
+
+for user in "${auth_users[@]}"; do
+    if id "$user" &> /dev/null; then
+        echo "$user:$DEFAULT_PASS" | sudo chpasswd 2>/dev/null
+        if [ $? -eq 0 ]; then
+            log_diagnostics "Password set for user: $user"
+        else
+            log_diagnostics "⚠ Failed to set password for user: $user"
+        fi
+    fi
+done
+
 log_diagnostics ""
 log_diagnostics "All changes completed successfully. If there were any errors, they have been logged."
 log_diagnostics "Script completed: $(date)"
