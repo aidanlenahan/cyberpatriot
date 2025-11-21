@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberPatriot Security Guides</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CyberPatriot Security Guides</h1>
+            <p class="subtitle">Comprehensive security hardening guides for competition success</p>
+        </header>
+
+        <main>
+            <section class="intro">
+                <h2>Welcome</h2>
+                <p>This repository contains comprehensive security hardening guides and scripts designed for CyberPatriot competitions. Each branch contains platform-specific guides with detailed step-by-step instructions and automated scripts to help secure systems efficiently.</p>
+            </section>
+
+            <section class="guide-section">
+                <h2><a href="windows.html">Windows Guide</a></h2>
+                <p><strong>Branch:</strong> <a href="https://github.com/aidanlenahan/cyberpatriot/tree/windows" target="_blank">windows</a></p>
+                <p><strong>Language:</strong> PowerShell</p>
+                <p><strong>Description:</strong> Comprehensive Windows security hardening guide with PowerShell scripts. Covers everything from initial setup through advanced security configurations, user management, service hardening, and points hunting strategies.</p>
+                <h3>Steps Included:</h3>
+                <ol class="steps-list" start="0">
+                    <li>Initial Setup - Create groups, users, and install programs</li>
+                    <li>Initialization - Configure execution policy and file visibility</li>
+                    <li>Forensics - Answer forensics questions using recommended tools</li>
+                    <li>Basic Security - Enable firewall, remove unwanted software and files</li>
+                    <li>Users and Groups - Manage user accounts and permissions</li>
+                    <li>Services - Disable unnecessary and dangerous services</li>
+                    <li>Miscellaneous - RDP, updates, and security policies</li>
+                    <li>Points Hunting - Additional security auditing and hardening</li>
+                </ol>
+                <p><a href="windows.html" class="button">View Detailed Windows Guide →</a></p>
+            </section>
+
+            <section class="guide-section">
+                <h2><a href="linux.html">Linux Guide</a></h2>
+                <p><strong>Branch:</strong> <a href="https://github.com/aidanlenahan/cyberpatriot/tree/linux" target="_blank">linux</a></p>
+                <p><strong>Language:</strong> Bash</p>
+                <p><strong>Description:</strong> Complete Linux security hardening guide with Bash scripts for Ubuntu, Debian, and other systemd-based distributions. Includes automated scripts and interactive tools for comprehensive system security.</p>
+                <h3>Steps Included:</h3>
+                <ol class="steps-list" start="0">
+                    <li>Initial Setup - Create groups, users, and install programs</li>
+                    <li>Initialization - Document system state and create backups</li>
+                    <li>Forensics - Answer forensics questions using recommended tools</li>
+                    <li>Basic Security - Configure UFW firewall and security updates</li>
+                    <li>Users and Groups - Manage accounts and password policies</li>
+                    <li>Services - Disable dangerous services and secure SSH</li>
+                    <li>Miscellaneous - Interactive security configuration menu</li>
+                    <li>Points Hunting - Comprehensive security audit and hardening</li>
+                </ol>
+                <p><strong>Note:</strong> The main.sh script achieves 100 points on tr2 ubuntu.</p>
+                <p><a href="linux.html" class="button">View Detailed Linux Guide →</a></p>
+            </section>
+
+            <section class="guide-section">
+                <h2>Windows Server Guide</h2>
+                <p><strong>Branch:</strong> <a href="https://github.com/aidanlenahan/cyberpatriot/tree/win-server" target="_blank">win-server</a></p>
+                <p><strong>Language:</strong> PowerShell</p>
+                <p><strong>Description:</strong> Enhanced Windows Server security guide with advanced configurations and server-specific hardening steps. Similar structure to the Windows guide but optimized for server environments.</p>
+                <h3>Steps Included:</h3>
+                <ol class="steps-list" start="0">
+                    <li>Initial Setup</li>
+                    <li>Initialization</li>
+                    <li>Forensics</li>
+                    <li>Basic Security</li>
+                    <li>Users and Groups</li>
+                    <li>Services</li>
+                    <li>Miscellaneous</li>
+                    <li>Points Hunting</li>
+                </ol>
+                <p><a href="https://github.com/aidanlenahan/cyberpatriot/tree/win-server" class="button" target="_blank">View Windows Server Branch →</a></p>
+            </section>
+
+            <section class="note-section">
+                <h2>How to Use These Guides</h2>
+                <ol>
+                    <li><strong>Select Your Platform:</strong> Choose the appropriate guide based on your competition image (Windows, Linux, or Windows Server).</li>
+                    <li><strong>Follow Steps in Order:</strong> Execute steps sequentially, starting from Step 0.</li>
+                    <li><strong>Read the README:</strong> Always read the competition README first to understand specific requirements.</li>
+                    <li><strong>Use the Scripts:</strong> Download and run the provided scripts from the respective branch.</li>
+                    <li><strong>Review Diagnostics:</strong> Check the diagnostics output files generated by each script.</li>
+                    <li><strong>Manual Verification:</strong> Always verify that changes were applied correctly.</li>
+                </ol>
+            </section>
+
+            <section class="note-section">
+                <h2>Repository Structure</h2>
+                <ul>
+                    <li><strong>main branch:</strong> General documentation and repository information</li>
+                    <li><strong>windows branch:</strong> Windows-specific scripts and detailed README</li>
+                    <li><strong>linux branch:</strong> Linux-specific scripts and detailed README</li>
+                    <li><strong>win-server branch:</strong> Windows Server scripts and documentation</li>
+                    <li><strong>web branch:</strong> HTML documentation files (this site)</li>
+                </ul>
+            </section>
+
+            <section class="note-section">
+                <h2>Important Notes</h2>
+                <ul>
+                    <li>All scripts should be run with appropriate administrative privileges.</li>
+                    <li>Always create backups before making system changes.</li>
+                    <li>Step 2 (Forensics) is handled manually and doesn't have automated scripts.</li>
+                    <li>Review all script outputs and diagnostics files carefully.</li>
+                    <li>Some scripts require configuration files (e.g., authusers.txt) before execution.</li>
+                    <li>Interactive scripts (Step 6 on Linux) provide menu-driven options.</li>
+                </ul>
+            </section>
+
+            <section class="license-section">
+                <h2>License & Usage</h2>
+                <p>These guides are designed for use in CyberPatriot competitions and may be adapted for other cybersecurity competitions or educational purposes. Feel free to use, modify, and share these resources to help teams succeed in their cybersecurity training and competitions.</p>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 CyberPatriot Security Guides</p>
+        </footer>
+    </div>
+</body>
+</html>
