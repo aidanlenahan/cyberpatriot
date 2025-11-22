@@ -32,8 +32,12 @@ This directory contains bash scripts that are equivalent to the PowerShell scrip
 ### Step 4: Users and Groups (`step4.sh`)
 **Purpose:** User and group management
 
+**Workflow:**
+- **First run:** Creates `authusers.txt` template and exits
+- **After editing authusers.txt:** Second run executes all actions below
+
 **Actions:**
-- Creates authusers.txt template if not exists
+- Creates authusers.txt template if not exists (first run only)
 - Disables unauthorized user accounts
 - Manages sudo/wheel group membership
 - Disables guest account
@@ -41,7 +45,7 @@ This directory contains bash scripts that are equivalent to the PowerShell scrip
 - Sets up account lockout policies
 
 **Output:** `diagnostics4.txt`
-**Requires:** `authusers.txt` (created on first run)
+**Requires:** `authusers.txt` (created on first run, must be edited before second run)
 
 ### Step 5: Services (`step5.sh`)
 **Purpose:** Service management and hardening
@@ -106,7 +110,8 @@ chmod +x step*.sh
 # Run each script in order
 sudo ./step1.sh
 sudo ./step3.sh
-sudo ./step4.sh   # Edit authusers.txt first!
+sudo ./step4.sh   # Creates authusers.txt template on first run
+# Edit authusers.txt with authorized users, then run step4.sh again
 sudo ./step5.sh
 sudo ./step6.sh   # Interactive - select options
 sudo ./step7.sh
@@ -114,10 +119,10 @@ sudo ./step7.sh
 
 ### Important Notes
 
-1. **Step 4 requires manual configuration:**
-   - First run creates `authusers.txt` template
-   - Edit this file with actual authorized users
-   - Run the script again after editing
+1. **Step 4 requires a two-step workflow (same as Windows and win-server branches):**
+   - **First run:** `sudo ./step4.sh` creates `authusers.txt` template and exits
+   - **Edit:** Modify `authusers.txt` with actual authorized users and administrators
+   - **Second run:** `sudo ./step4.sh` executes user management actions
 
 2. **Step 6 is interactive:**
    - Presents a menu of options
@@ -168,6 +173,11 @@ Some features may require specific packages or may not work on all distributions
 These bash scripts are equivalents of the PowerShell scripts in:
 - `windows` branch - step1.ps1 through step7.ps1 (excluding step2)
 - `win-server` branch - enhanced versions with better logging
+
+**Note:** The Linux step4.sh script follows the same two-step workflow as the Windows and win-server versions:
+1. First run creates authusers.txt template and exits
+2. Edit authusers.txt with authorized users
+3. Second run executes the user management actions
 
 ## Author
 
