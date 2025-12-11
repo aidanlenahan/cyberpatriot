@@ -24,12 +24,13 @@ write_diagnostics "========================================="
 # ------------------- Check for Suspicious Processes -------------------
 write_diagnostics "=== Checking for Suspicious Processes ==="
 
-suspicious_processes=("nc" "ncat" "netcat" "nmap" "wireshark" "tcpdump" "john" "hydra" "nikto" "sqlmap")
+# Extended list including remote access tools and miners
+suspicious_processes=("nc" "ncat" "netcat" "nmap" "wireshark" "tcpdump" "john" "hydra" "nikto" "sqlmap" "teamviewer" "anydesk" "vncviewer" "xmr-stak" "cpuminer" "ccminer" "ethminer" "minerd" "kismet")
 found_suspicious=0
 
 for proc in "${suspicious_processes[@]}"; do
-    if pgrep -x "$proc" > /dev/null 2>&1; then
-        pid=$(pgrep -x "$proc")
+    if pgrep -xi "$proc" > /dev/null 2>&1; then
+        pid=$(pgrep -xi "$proc")
         write_diagnostics "⚠ Suspicious Process Found: $proc (PID: $pid)"
         found_suspicious=1
     fi
@@ -243,6 +244,22 @@ else
     write_diagnostics "  tmpfs /run/shm tmpfs defaults,noexec,nosuid 0 0"
 fi
 
+# ------------------- Disable SMBv1 Protocol -------------------
+write_diagnostics ""
+write_diagnostics "=== SMBv1 Protocol Check ==="
+
+if [ -f /etc/samba/smb.conf ]; then
+    if grep -q "min protocol = SMB2" /etc/samba/smb.conf || grep -q "min protocol = SMB3" /etc/samba/smb.conf; then
+        write_diagnostics "✓ SMBv1 is already disabled in Samba configuration"
+    else
+        write_diagnostics "⚠ SMBv1 may be enabled. Consider adding to [global] section in /etc/samba/smb.conf:"
+        write_diagnostics "  min protocol = SMB2"
+        write_diagnostics "  server min protocol = SMB2"
+    fi
+else
+    write_diagnostics "Samba not installed or configuration not found."
+fi
+
 # ------------------- List Running Processes Using Network -------------------
 write_diagnostics ""
 write_diagnostics "=== Processes Using Network ==="
@@ -275,6 +292,17 @@ for location in "${suspicious_locations[@]}"; do
         fi
     fi
 done
+
+# ------------------- List All Running Processes for Manual Review -------------------
+write_diagnostics ""
+write_diagnostics "=== Complete Process List for Manual Review ==="
+
+write_diagnostics "List of all running processes (review for suspicious activity):"
+ps aux --sort=-%cpu | head -30 >> "$DIAGNOSTICS_FILE"
+
+write_diagnostics ""
+write_diagnostics "Note: Review running processes for suspicious activity."
+write_diagnostics "Research unknown processes online to verify legitimacy."
 
 # ------------------- End of Script -------------------
 write_diagnostics ""
