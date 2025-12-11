@@ -178,55 +178,16 @@ for user in "${auth_users[@]}"; do
     fi
 done
 
-# Configure PAM for password complexity (if libpam-pwquality is installed)
-if [ -f /etc/security/pwquality.conf ]; then
-    log_diagnostics ""
-    log_diagnostics "Configuring password complexity requirements..."
-    
-    # Backup original file
-    sudo cp /etc/security/pwquality.conf /etc/security/pwquality.conf.bak 2>/dev/null
-    
-    # Set password requirements
-    sudo sed -i 's/^# minlen =.*/minlen = 12/' /etc/security/pwquality.conf
-    sudo sed -i 's/^# dcredit =.*/dcredit = -1/' /etc/security/pwquality.conf
-    sudo sed -i 's/^# ucredit =.*/ucredit = -1/' /etc/security/pwquality.conf
-    sudo sed -i 's/^# lcredit =.*/lcredit = -1/' /etc/security/pwquality.conf
-    sudo sed -i 's/^# ocredit =.*/ocredit = -1/' /etc/security/pwquality.conf
-    
-    log_diagnostics "✓ Password complexity requirements configured:"
-    log_diagnostics "  - Minimum length: 12 characters"
-    log_diagnostics "  - Requires: uppercase, lowercase, digit, and special character"
-else
-    log_diagnostics "⚠ pwquality.conf not found. Install libpam-pwquality for password complexity."
-fi
-
-# Configure account lockout policy
-if [ -f /etc/pam.d/common-auth ]; then
-    log_diagnostics ""
-    log_diagnostics "Configuring account lockout policy..."
-    
-    # Check if faillock/tally2 is already configured
-    if ! grep -q "pam_faillock" /etc/pam.d/common-auth 2>/dev/null && \
-       ! grep -q "pam_tally2" /etc/pam.d/common-auth 2>/dev/null; then
-        
-        # Try to use pam_faillock (newer)
-        pam_faillock_found=0
-        for libdir in /lib/x86_64-linux-gnu/security /lib64/security /lib/security; do
-            if [ -f "$libdir/pam_faillock.so" ]; then
-                pam_faillock_found=1
-                break
-            fi
-        done
-        
-        if [ $pam_faillock_found -eq 1 ]; then
-            log_diagnostics "Note: Account lockout configuration requires manual PAM configuration"
-            log_diagnostics "Consider adding pam_faillock with deny=5 unlock_time=1800"
-        fi
-    else
-        log_diagnostics "✓ Account lockout policy already configured"
-    fi
-fi
-
+log_diagnostics ""
+log_diagnostics "=== Password Complexity and Account Lockout ==="
+log_diagnostics "⚠ PAM configuration has been moved to step8.sh for safety"
+log_diagnostics "  Run 'sudo ./step8.sh' separately to configure:"
+log_diagnostics "  - Password complexity requirements (pwquality)"
+log_diagnostics "  - Account lockout policy (faillock/tally2)"
+log_diagnostics "  - Password history"
+log_diagnostics ""
+log_diagnostics "  NOTE: PAM configuration can break login if misconfigured."
+log_diagnostics "        step8.sh includes safety features to prevent lockout."
 log_diagnostics ""
 log_diagnostics "All changes completed successfully. If there were any errors, they have been logged."
 log_diagnostics "Script completed: $(date)"

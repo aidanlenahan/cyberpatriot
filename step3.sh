@@ -94,24 +94,103 @@ else
 fi
 log_diagnostics ""
 
-# Recursively list all media files from /home
-echo "Listing media files in /home..."
-log_diagnostics "=== Media Files Found in /home ==="
+# Comprehensive media file scan across multiple directories
+echo "Performing comprehensive scan for unauthorized media files..."
+log_diagnostics "=== COMPREHENSIVE MEDIA FILES SCAN ==="
+log_diagnostics "Scanning multiple directories for unauthorized files..."
+log_diagnostics ""
 
-media_files=$(find /home -type f \( \
-    -iname "*.mp3" -o -iname "*.mp4" -o -iname "*.mov" -o \
-    -iname "*.wav" -o -iname "*.aac" -o -iname "*.flac" -o \
-    -iname "*.mkv" -o -iname "*.avi" -o -iname "*.wmv" -o \
-    -iname "*.png" -o -iname "*.jpeg" -o -iname "*.jpg" -o \
-    -iname "*.gif" -o -iname "*.tiff" -o -iname "*.bmp" -o \
-    -iname "*.pdf" -o -iname "*.doc" -o -iname "*.docx" \
-\) 2>/dev/null | head -100)
+# Define file extensions to search for
+media_extensions=(
+    # Audio
+    "-iname *.mp3" "-iname *.wav" "-iname *.aac" "-iname *.flac" 
+    "-iname *.ogg" "-iname *.wma" "-iname *.m4a"
+    # Video
+    "-iname *.mp4" "-iname *.mov" "-iname *.avi" "-iname *.mkv" 
+    "-iname *.wmv" "-iname *.flv" "-iname *.mpeg" "-iname *.mpg"
+    # Images
+    "-iname *.png" "-iname *.jpeg" "-iname *.jpg" "-iname *.gif" 
+    "-iname *.tiff" "-iname *.bmp" "-iname *.svg" "-iname *.webp"
+    # Documents (potentially unauthorized)
+    "-iname *.pdf" "-iname *.doc" "-iname *.docx" "-iname *.txt"
+    # Executables and scripts
+    "-iname *.exe" "-iname *.msi" "-iname *.cmd" "-iname *.bat"
+)
 
-if [ -n "$media_files" ]; then
-    log_diagnostics "Found the following media files (showing first 100):"
-    echo "$media_files" >> "$DIAGNOSTICS_FILE"
+# Join extensions with -o for find command
+find_pattern=""
+for ext in "${media_extensions[@]}"; do
+    if [ -z "$find_pattern" ]; then
+        find_pattern="$ext"
+    else
+        find_pattern="$find_pattern -o $ext"
+    fi
+done
+
+# Directories to scan (from most likely to least likely to contain unauthorized files)
+scan_dirs=(
+    "/home"           # User home directories - primary location
+    "/root"           # Root user's home
+    "/tmp"            # Temporary files
+    "/var/tmp"        # Another temp location
+    "/opt"            # Optional software installations
+    "/usr/local/share" # Locally installed shared files
+    "/var/www"        # Web server directories
+    "/srv"            # Service data
+)
+
+total_found=0
+
+for scan_dir in "${scan_dirs[@]}"; do
+    if [ ! -d "$scan_dir" ]; then
+        continue
+    fi
+    
+    echo "  Scanning: $scan_dir"
+    
+    # Perform the search
+    media_files=$(eval "find '$scan_dir' -type f \( $find_pattern \) 2>/dev/null | head -50")
+    
+    if [ -n "$media_files" ]; then
+        file_count=$(echo "$media_files" | wc -l)
+        total_found=$((total_found + file_count))
+        
+        log_diagnostics "--- Files found in $scan_dir ($file_count files) ---"
+        echo "$media_files" >> "$DIAGNOSTICS_FILE"
+        log_diagnostics ""
+    fi
+done
+
+log_diagnostics "========================================="
+log_diagnostics "TOTAL MEDIA FILES FOUND: $total_found"
+log_diagnostics "========================================="
+log_diagnostics ""
+log_diagnostics "⚠ IMPORTANT: Review all files above and remove any unauthorized media."
+log_diagnostics "   Check the README for which files are legitimate vs. prohibited."
+log_diagnostics ""
+
+# Additional check for large files (might indicate movies/videos)
+log_diagnostics "=== Large Files Check (Potential Hidden Media) ==="
+log_diagnostics "Searching for files larger than 10MB in user directories..."
+echo "  Scanning for large files..."
+
+large_files=$(find /home /root -type f -size +10M 2>/dev/null | head -20)
+
+if [ -n "$large_files" ]; then
+    log_diagnostics "Large files found (review for unauthorized media):"
+    echo "$large_files" >> "$DIAGNOSTICS_FILE"
+    
+    # Get file types for large files
+    log_diagnostics ""
+    log_diagnostics "File type details:"
+    while IFS= read -r file; do
+        if [ -f "$file" ]; then
+            file_info=$(file "$file" 2>/dev/null || echo "Unknown")
+            echo "  $file: $file_info" >> "$DIAGNOSTICS_FILE"
+        fi
+    done <<< "$large_files"
 else
-    log_diagnostics "No media files found."
+    log_diagnostics "No large files found."
 fi
 log_diagnostics ""
 

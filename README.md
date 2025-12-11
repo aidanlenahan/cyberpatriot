@@ -45,18 +45,24 @@ This guide provides a step-by-step approach to hardening a Linux CyberPatriot im
    - Configure the system to automatically apply security updates.
 3. **List File Shares:**
    - Identify all Samba/NFS shares.
-4. **Scan for Media Files:**
-   - Locate unauthorized media files in `/home` directories:
-     - Audio/Video: mp3, mp4, mov, wav, aac, flac, mkv
-     - Images: png, jpeg, jpg, gif, tiff, bmp
-     - Documents: pdf, doc, docx
-5. **Detect Unwanted Applications:**
+4. **Comprehensive Media File Scan:**
+   - Locate unauthorized media files across multiple directories:
+     - **Directories scanned:** `/home`, `/root`, `/tmp`, `/var/tmp`, `/opt`, `/usr/local/share`, `/var/www`, `/srv`
+     - **Audio:** mp3, wav, aac, flac, ogg, wma, m4a
+     - **Video:** mp4, mov, avi, mkv, wmv, flv, mpeg, mpg
+     - **Images:** png, jpeg, jpg, gif, tiff, bmp, svg, webp
+     - **Documents:** pdf, doc, docx, txt
+     - **Executables:** exe, msi, cmd, bat
+5. **Large File Detection:**
+   - Identify files larger than 10MB (potential hidden media)
+   - Uses `file` command to determine actual file types
+6. **Detect Unwanted Applications:**
    - Identify prohibited software like Wireshark, Nmap, JDownloader, and games.
-6. **Check Security Modules:**
+7. **Check Security Modules:**
    - Verify AppArmor/SELinux status.
 
 ### Output:
-- `diagnostics3.txt`
+- `diagnostics3.txt` (includes file counts per directory and total files found)
 
 ---
 
@@ -68,14 +74,17 @@ This guide provides a step-by-step approach to hardening a Linux CyberPatriot im
    - Verify sudo/wheel group membership is correct.
 3. **Disable Guest Account:**
    - Ensure the guest account is disabled.
-4. **Configure Password Policies:**
-   - Set password aging, complexity requirements, and account lockout policies.
+4. **Configure Password Aging:**
+   - Set password max age (90 days), min age (10 days), and warning (7 days).
+
+**Note:** Password complexity and account lockout policies have been moved to **Step 8** for safety reasons.
 
 #### How to Execute This Script:
 1. **Run the script `step4.sh` first.** It will create a template file named `authusers.txt` in the same directory.
 2. **Edit `authusers.txt`** with the list of authorized users from the README.
 3. **Run `step4.sh` again** to apply changes.
 4. **Check `diagnostics4.txt`** for updates.
+5. **For PAM configuration, proceed to Step 8 after completing Step 7.**
 
 ### Output:
 - `diagnostics4.txt`
@@ -121,7 +130,7 @@ This guide provides a step-by-step approach to hardening a Linux CyberPatriot im
 ## Step 7 - Points Hunting
 ### Tasks:
 **Comprehensive Security Audit:**
-- Check for suspicious processes
+- Check for suspicious processes (including TeamViewer, AnyDesk, cryptocurrency miners)
 - Identify unusual open ports
 - Detect prohibited services
 - Review cron jobs and scheduled tasks
@@ -134,18 +143,66 @@ This guide provides a step-by-step approach to hardening a Linux CyberPatriot im
 - Audit firewall status
 - List recently installed packages
 - Check shared memory security
+- Disable SMBv1 protocol (security risk)
 - Identify network-connected processes
+- List all running processes for manual review
 
 ### Output:
 - `diagnostics7.txt`
 
 ---
 
+## Step 8 - PAM Configuration (CRITICAL - Run Last!)
+### ⚠️ WARNING:
+**PAM (Pluggable Authentication Modules) configuration can lock you out of the system if misconfigured!**
+
+### Safety Features:
+- **Requires sudo** to run
+- **Automatically opens a safety root terminal** before making changes
+- **Backs up all configuration files** with timestamps
+- **Provides clear testing instructions** before closing safety terminal
+
+### Tasks:
+1. **Password Complexity Requirements:**
+   - Minimum length: 12 characters
+   - Requires uppercase, lowercase, digit, and special character
+   - Configures `/etc/security/pwquality.conf`
+2. **Account Lockout Policy:**
+   - Uses pam_faillock (newer) or pam_tally2 (older systems)
+   - Locks account after 5 failed login attempts
+   - 30-minute unlock time
+3. **Password History:**
+   - Prevents reuse of last 5 passwords
+
+### How to Execute This Script:
+1. **Complete Steps 1-7 first**
+2. **Run:** `sudo ./step8.sh`
+3. **A root terminal will open automatically** - DO NOT CLOSE IT
+4. **Press ENTER** to proceed with configuration
+5. **Open a NEW terminal** and test login with: `su - <username>`
+6. **If login works:** Success! You can close the root terminal
+7. **If login fails:** Use the root terminal to restore from .bak files
+
+### Output:
+- `diagnostics8.txt`
+
+### Recovery Commands (if locked out):
+```bash
+sudo cp /etc/security/pwquality.conf.bak /etc/security/pwquality.conf
+sudo cp /etc/pam.d/common-auth.bak /etc/pam.d/common-auth
+sudo cp /etc/pam.d/common-account.bak /etc/pam.d/common-account
+sudo cp /etc/pam.d/common-password.bak /etc/pam.d/common-password
+```
+
+---
+
 ## Important Notes
 - Run all scripts with appropriate permissions (most require sudo).
-- Scripts should be run in order (1, 3, 4, 5, 6, 7). Step 2 is intentionally excluded (forensics).
+- **Recommended order:** 1, 3, 4, 5, 6, 7, **then 8 (PAM - LAST!)**.
+- Step 2 is intentionally excluded (forensics - use tools like CyberChef, ChatGPT).
 - Step 4 requires manual configuration of `authusers.txt` before running.
 - Step 6 is interactive and presents a menu of options.
+- **Step 8 MUST be run last** and requires careful testing due to PAM configuration risks.
 - All scripts generate diagnostics files - review these carefully to verify changes.
 - Step 1 creates backups in `backups/` directory and logs in `/var/log/cyberpatriot/`.
 
