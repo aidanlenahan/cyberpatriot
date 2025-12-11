@@ -6,7 +6,9 @@
 
 # Get script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-LOG_FILE="$SCRIPT_DIR/diagnostics6.txt"
+DIAGNOSTICS_DIR="$SCRIPT_DIR/diagnostics"
+mkdir -p "$DIAGNOSTICS_DIR"
+LOG_FILE="$DIAGNOSTICS_DIR/diagnostics6.txt"
 
 # Function to log messages with formatting
 log_message() {
@@ -16,8 +18,9 @@ log_message() {
     echo "" | tee -a "$LOG_FILE"
 }
 
-# Clear or initialize log file
-echo "=== Linux CyberPatriot Step 6 Diagnostics ===" > "$LOG_FILE"
+# Append to log file (don't overwrite)
+echo "" >> "$LOG_FILE"
+echo "=== Linux CyberPatriot Step 6 Diagnostics ===" >> "$LOG_FILE"
 echo "Generated: $(date)" >> "$LOG_FILE"
 echo "" >> "$LOG_FILE"
 

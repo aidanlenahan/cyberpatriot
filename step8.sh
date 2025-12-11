@@ -20,15 +20,17 @@ fi
 
 # Get script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DIAGNOSTICS_FILE="$SCRIPT_DIR/diagnostics8.txt"
+DIAGNOSTICS_DIR="$SCRIPT_DIR/diagnostics"
+mkdir -p "$DIAGNOSTICS_DIR"
+DIAGNOSTICS_FILE="$DIAGNOSTICS_DIR/diagnostics8.txt"
 
 # Function to log changes to diagnostics file
 log_diagnostics() {
     echo "$1" | tee -a "$DIAGNOSTICS_FILE"
 }
 
-# Initialize diagnostics file
-echo "" > "$DIAGNOSTICS_FILE"
+# Append to diagnostics file (don't overwrite)
+echo "" >> "$DIAGNOSTICS_FILE"
 log_diagnostics "========================================="
 log_diagnostics "Step 8: PAM Configuration"
 log_diagnostics "Diagnostics Report - $(date)"

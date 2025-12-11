@@ -24,7 +24,7 @@ This guide provides a step-by-step approach to hardening a Linux CyberPatriot im
    - Create initial diagnostics report.
 
 ### Output:
-- `diagnostics1.txt`
+- `diagnostics/diagnostics1.txt`
 
 ---
 
@@ -62,7 +62,7 @@ This guide provides a step-by-step approach to hardening a Linux CyberPatriot im
    - Verify AppArmor/SELinux status.
 
 ### Output:
-- `diagnostics3.txt` (includes file counts per directory and total files found)
+- `diagnostics/diagnostics3.txt` (includes file counts per directory and total files found)
 
 ---
 
@@ -83,11 +83,11 @@ This guide provides a step-by-step approach to hardening a Linux CyberPatriot im
 1. **Run the script `step4.sh` first.** It will create a template file named `authusers.txt` in the same directory.
 2. **Edit `authusers.txt`** with the list of authorized users from the README.
 3. **Run `step4.sh` again** to apply changes.
-4. **Check `diagnostics4.txt`** for updates.
+4. **Check `diagnostics/diagnostics4.txt`** for updates.
 5. **For PAM configuration, proceed to Step 8 after completing Step 7.**
 
 ### Output:
-- `diagnostics4.txt`
+- `diagnostics/diagnostics4.txt`
 
 ---
 
@@ -106,7 +106,7 @@ This guide provides a step-by-step approach to hardening a Linux CyberPatriot im
    - List all open ports and enabled services for review.
 
 ### Output:
-- `diagnostics5.txt`
+- `diagnostics/diagnostics5.txt`
 
 ---
 
@@ -123,7 +123,7 @@ This guide provides a step-by-step approach to hardening a Linux CyberPatriot im
 **Note:** This script is interactive. You can select individual options or choose 'A' to perform all actions.
 
 ### Output:
-- `diagnostics6.txt`
+- `diagnostics/diagnostics6.txt`
 
 ---
 
@@ -148,7 +148,7 @@ This guide provides a step-by-step approach to hardening a Linux CyberPatriot im
 - List all running processes for manual review
 
 ### Output:
-- `diagnostics7.txt`
+- `diagnostics/diagnostics7.txt`
 
 ---
 
@@ -182,9 +182,10 @@ This guide provides a step-by-step approach to hardening a Linux CyberPatriot im
 5. **Open a NEW terminal** and test login with: `su - <username>`
 6. **If login works:** Success! You can close the root terminal
 7. **If login fails:** Use the root terminal to restore from .bak files
+8. **Check `diagnostics/diagnostics8.txt`** for detailed results
 
 ### Output:
-- `diagnostics8.txt`
+- `diagnostics/diagnostics8.txt`
 
 ### Recovery Commands (if locked out):
 ```bash
@@ -203,7 +204,8 @@ sudo cp /etc/pam.d/common-password.bak /etc/pam.d/common-password
 - Step 4 requires manual configuration of `authusers.txt` before running.
 - Step 6 is interactive and presents a menu of options.
 - **Step 8 MUST be run last** and requires careful testing due to PAM configuration risks.
-- All scripts generate diagnostics files - review these carefully to verify changes.
+- All scripts generate diagnostics files in the `diagnostics/` subdirectory.
+- **Diagnostics files are appended to** (not overwritten) - maintaining a complete audit trail.
 - Step 1 creates backups in `backups/` directory and logs in `/var/log/cyberpatriot/`.
 
 ---

@@ -6,7 +6,9 @@
 
 # Get script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DIAGNOSTICS_FILE="$SCRIPT_DIR/diagnostics7.txt"
+DIAGNOSTICS_DIR="$SCRIPT_DIR/diagnostics"
+mkdir -p "$DIAGNOSTICS_DIR"
+DIAGNOSTICS_FILE="$DIAGNOSTICS_DIR/diagnostics7.txt"
 
 # Function to write to diagnostics file in a neat format
 write_diagnostics() {
@@ -14,8 +16,9 @@ write_diagnostics() {
     echo "$1" | tee -a "$DIAGNOSTICS_FILE"
 }
 
-# Start logging the script's actions
-echo "Script Execution Started - $(date)" > "$DIAGNOSTICS_FILE"
+# Start logging the script's actions (append mode)
+echo "" >> "$DIAGNOSTICS_FILE"
+echo "Script Execution Started - $(date)" >> "$DIAGNOSTICS_FILE"
 
 write_diagnostics "========================================="
 write_diagnostics "Step 7: Points Hunting - Additional Security Checks"

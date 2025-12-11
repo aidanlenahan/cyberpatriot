@@ -6,7 +6,9 @@
 
 # Get script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DIAGNOSTICS_FILE="$SCRIPT_DIR/diagnostics5.txt"
+DIAGNOSTICS_DIR="$SCRIPT_DIR/diagnostics"
+mkdir -p "$DIAGNOSTICS_DIR"
+DIAGNOSTICS_FILE="$DIAGNOSTICS_DIR/diagnostics5.txt"
 
 # Append a new section header to the diagnostics file with the date and time
 echo "" >> "$DIAGNOSTICS_FILE"
