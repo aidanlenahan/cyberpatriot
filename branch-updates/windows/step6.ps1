@@ -32,11 +32,15 @@ function Disable-RDPSettings {
 # Option 2: Look for all open ports aside from the default
 function Check-OpenPorts {
     Log-Message "Checking for open ports aside from the default"
-    $openPorts = netstat -an | Select-String "LISTENING" | Select-String -NotMatch "80|443|3389"
-    if ($openPorts) {
-        $openPorts | ForEach-Object { Log-Message "Open port found: $_" }
-    } else {
-        Log-Message "No unusual open ports found."
+    try {
+        $openPorts = Get-NetTCPConnection -State Listen | Where-Object { $_.LocalPort -notin 80, 443, 3389 }
+        if ($openPorts) {
+            $openPorts | ForEach-Object { Log-Message "Open port found: $($_.LocalPort) on $($_.LocalAddress)" }
+        } else {
+            Log-Message "No unusual open ports found."
+        }
+    } catch {
+        Log-Message "Error checking open ports: $($_.Exception.Message)"
     }
 }
 
