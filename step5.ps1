@@ -15,12 +15,33 @@
 [CmdletBinding()]
 param()
 
+# Define diagnostics folder and file path
+$diagnosticsFolder = Join-Path $PSScriptRoot "diagnostics"
+$diagnosticsFile = Join-Path $diagnosticsFolder "diagnostics5.txt"
+
+# Create diagnostics folder if it doesn't exist
+if (-not (Test-Path $diagnosticsFolder)) {
+    New-Item -Path $diagnosticsFolder -ItemType Directory -Force | Out-Null
+}
+
+# Function to write to diagnostics file (appends to file)
+function Write-Diagnostics {
+    param ([string]$text)
+    Add-Content -Path $diagnosticsFile -Value $text
+}
+
 # Start logging
 $LogPath = "C:\CyberPatriot\Logs"
 if (-not (Test-Path $LogPath)) {
     New-Item -Path $LogPath -ItemType Directory -Force | Out-Null
 }
 Start-Transcript -Path "$LogPath\step5-log.txt" -Append
+
+# Log header
+Write-Diagnostics ""
+Write-Diagnostics "--- Security Service Check Report ---"
+Write-Diagnostics "Generated on $(Get-Date -Format "MM/dd/yyyy HH:mm:ss")"
+Write-Diagnostics ""
 
 try {
     Write-Verbose "Starting Step 5: Disabling insecure and unnecessary services."
@@ -46,6 +67,7 @@ try {
         $service = Get-Service -Name $serviceName -ErrorAction SilentlyContinue
 
         if ($service) {
+            Write-Diagnostics "$serviceName ($description) - Status: $($service.Status)"
             if ($service.Status -ne 'Stopped' -or $service.StartType -ne 'Disabled') {
                 Write-Host "Service '$serviceName' ($description) is not in a secure state (Status: $($service.Status), Startup: $($service.StartType))." -ForegroundColor Yellow
                 Write-Verbose "Stopping and disabling '$serviceName'."
@@ -56,21 +78,29 @@ try {
                 $updatedService = Get-Service -Name $serviceName
                 if ($updatedService.Status -eq 'Stopped' -and $updatedService.StartType -eq 'Disabled') {
                     Write-Host "Successfully stopped and disabled '$serviceName'." -ForegroundColor Green
+                    Write-Diagnostics "Action: $serviceName disabled and stopped for security."
                 } else {
                     Write-Host "Failed to secure '$serviceName'. Current state: Status: $($updatedService.Status), Startup: $($updatedService.StartType)" -ForegroundColor Red
+                    Write-Diagnostics "ERROR: Failed to secure $serviceName"
                 }
             } else {
                 Write-Host "Service '$serviceName' is already in a secure state (Stopped and Disabled)." -ForegroundColor Green
+                Write-Diagnostics "No action needed. $serviceName is already secure."
             }
+            Write-Diagnostics ""
         } else {
             Write-Host "Service '$serviceName' not found on this system." -ForegroundColor Gray
+            Write-Diagnostics "Service $serviceName not found."
+            Write-Diagnostics ""
         }
     }
 }
 catch {
     Write-Host "An error occurred: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Diagnostics "ERROR: $($_.Exception.Message)"
 }
 finally {
+    Write-Diagnostics "--- End of Report ---"
     Write-Verbose "Step 5 script finished."
     Stop-Transcript
 }

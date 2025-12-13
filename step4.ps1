@@ -16,12 +16,33 @@
 [CmdletBinding()]
 param()
 
+# Define diagnostics folder and file path
+$diagnosticsFolder = Join-Path $PSScriptRoot "diagnostics"
+$diagnosticsFile = Join-Path $diagnosticsFolder "diagnostics4.txt"
+
+# Create diagnostics folder if it doesn't exist
+if (-not (Test-Path $diagnosticsFolder)) {
+    New-Item -Path $diagnosticsFolder -ItemType Directory -Force | Out-Null
+}
+
+# Function to write to diagnostics file (appends to file)
+function Write-Diagnostics {
+    param ([string]$text)
+    Add-Content -Path $diagnosticsFile -Value $text
+}
+
 # Start logging
 $LogPath = "C:\CyberPatriot\Logs"
 if (-not (Test-Path $LogPath)) {
     New-Item -Path $LogPath -ItemType Directory -Force | Out-Null
 }
 Start-Transcript -Path "$LogPath\step4-log.txt" -Append
+
+# Log header
+Write-Diagnostics ""
+Write-Diagnostics "========== STEP 4 DIAGNOSTICS =========="
+Write-Diagnostics "Generated on: $(Get-Date)"
+Write-Diagnostics ""
 
 try {
     Write-Verbose "Starting Step 4: Local user and group management."
@@ -30,6 +51,7 @@ try {
 
     if (-not (Test-Path -Path $authUsersFile)) {
         Write-Host "'authusers.txt' not found. Creating a template file." -ForegroundColor Yellow
+        Write-Diagnostics "authusers.txt was not found. Created a template for the competitor."
         $templateContent = @"
 # List authorized standard users below this line
 user1
@@ -81,8 +103,10 @@ admin2
             Disable-LocalUser -Name $user.Name
             if ((Get-LocalUser -Name $user.Name).Enabled -eq $false) {
                 Write-Host "Disabled user: $($user.Name)" -ForegroundColor Green
+                Write-Diagnostics "Disabled user: $($user.Name)"
             } else {
                 Write-Host "Failed to disable user: $($user.Name)" -ForegroundColor Red
+                Write-Diagnostics "ERROR: Failed to disable user: $($user.Name)"
             }
         }
     }
@@ -99,6 +123,7 @@ admin2
             Write-Verbose "Removing $($admin.Name) from Administrators."
             Remove-LocalGroupMember -Group "Administrators" -Member $admin.Name
             Write-Host "Removed $($admin.Name) from Administrators." -ForegroundColor Green
+            Write-Diagnostics "Removed user $($admin.Name) from Administrators group."
         }
     }
 
@@ -108,6 +133,7 @@ admin2
             Write-Verbose "Adding $admin to Administrators."
             Add-LocalGroupMember -Group "Administrators" -Member $admin
             Write-Host "Added $admin to Administrators." -ForegroundColor Green
+            Write-Diagnostics "Added user $admin to Administrators group."
         }
     }
 
@@ -118,6 +144,7 @@ admin2
         if ($account -and $account.Enabled) {
             Disable-LocalUser -Name $accountName
             Write-Host "Disabled '$accountName' account." -ForegroundColor Green
+            Write-Diagnostics "Disabled $accountName account."
         } else {
             Write-Host "'$accountName' account is already disabled or does not exist." -ForegroundColor Yellow
         }
@@ -132,15 +159,21 @@ admin2
             Set-LocalUser -Name $user.Name -Password $password
             Set-LocalUser -Name $user.Name -PasswordNeverExpires $false
             Write-Host "Password and policy updated for user: $($user.Name)" -ForegroundColor Green
+            Write-Diagnostics "Password and policy updated for user: $($user.Name)"
         } catch {
             Write-Host "Error setting password for user: $($user.Name). Maybe a built-in account." -ForegroundColor Red
+            Write-Diagnostics "ERROR: Failed to set password for user: $($user.Name)"
         }
     }
 }
 catch {
     Write-Host "An error occurred: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Diagnostics "ERROR: $($_.Exception.Message)"
 }
 finally {
+    Write-Diagnostics ""
+    Write-Diagnostics "All changes completed. If there were any errors, they have been logged."
+    Write-Diagnostics "=== Script completed on: $(Get-Date) ==="
     Write-Verbose "Step 4 script finished."
     Stop-Transcript
 }
