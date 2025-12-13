@@ -30,7 +30,7 @@ fi
 cat >> $NGINX_SITE << 'EOF'
 
 # Deny access to sensitive directories
-location ~ /(data|conf|bin|vendor)/ {
+location ~ ^/(data|conf|bin|vendor)/ {
     deny all;
 }
 client_max_body_size 10M;
