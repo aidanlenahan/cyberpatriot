@@ -1,0 +1,41 @@
+Instructions:
+
+1) Type the answer to the question in place of <Type Answer Here>
+
+2) Save the file (you will not receive credit until the file is saved)
+
+Example question (not scored):
+
+What was the name of the Lone Ranger's horse?
+
+ANSWER: <Type Answer Here>
+
+After correctly answering the question, the example question would look like:
+
+What was the name of the Lone Ranger's horse?
+
+ANSWER: Silver
+
+If the question has more than one answer, place each answer on a separate line,
+for example:
+
+What was the name of the Lone Ranger's horse?
+
+ANSWER: Silver
+ANSWER: Dusty
+
+Remember to save the file after answering. The scored question appears below.
+
+===============================================================================
+
+The wiki software being set up on this server is not currently configured to
+use authentication. As a result, anyone can edit pages anonymously.
+
+Management would like you to enable authentication. However, in order to do
+this, you must enable a setting in the configuration file. What is the $conf
+array key name that needs to be changed to enable authentication?
+
+( EXAMPLE: disableactions )
+
+ANSWER: useacl
+
