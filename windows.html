@@ -91,8 +91,9 @@
                     <li><strong>Format the user list:</strong> Use ChatGPT with the provided prompt to convert the readme user list into the format recognized by the script.</li>
                     <li><strong>Copy ChatGPT's Output to <code>authusers.txt</code>.</strong></li>
                     <li><strong>Run <code>step4.ps1</code> again</strong> to apply changes.</li>
-                    <li><strong>Check <code>diagnostics4.txt</code></strong> for updates.</li>
+                    <li><strong>Check <code>diagnostics/diagnostics4.txt</code></strong> for updates.</li>
                 </ol>
+                <p><strong>Output:</strong> <code>diagnostics/diagnostics4.txt</code></p>
             </div>
 
             <div class="task-section">
@@ -109,6 +110,7 @@
                     <li>Infrared Monitor Service</li>
                     <li>Plug and Play</li>
                 </ul>
+                <p><strong>Output:</strong> <code>diagnostics/diagnostics5.txt</code></p>
             </div>
 
             <div class="task-section">
@@ -119,8 +121,44 @@
                     <li><strong>Check for Open Ports:</strong> Identify and close any unnecessary open ports.</li>
                     <li><strong>Enable Automatic Windows Updates:</strong> Configure updates through <strong>Group Policy Editor (gpedit.msc)</strong>.</li>
                     <li><strong>Apply Windows Security Policies (SecPol):</strong> Use <strong>MMC</strong> (Microsoft Management Console) to configure security policies with <code>.inf</code> files.</li>
+                    <li><strong>Disable Web Server Services:</strong> Turn off World Wide Web Publishing Service (W3SVC) if not required.</li>
+                    <li><strong>Disable SSH Service:</strong> Turn off SSH (sshd) service if not required.</li>
                 </ol>
+                <p><strong>Output:</strong> <code>diagnostics/diagnostics6.txt</code></p>
             </div>
+
+            <div class="task-section">
+                <h2><a href="https://github.com/aidanlenahan/cyberpatriot/tree/windows" target="_blank">Step 7 - Points Hunting</a></h2>
+                <h3>Tasks:</h3>
+                <p><strong>Comprehensive Security Audit:</strong></p>
+                <ol>
+                    <li><strong>Check for Suspicious Processes:</strong> Detect potentially malicious processes including:
+                        <ul>
+                            <li>nc.exe, netcat, ncat (network tools)</li>
+                            <li>vncviewer, teamviewer, anydesk (remote access)</li>
+                            <li>xmr-stak, kismet (cryptocurrency miners, network sniffers)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Identify Open Ports:</strong> List all listening TCP ports for review.</li>
+                    <li><strong>Check for FTP Services:</strong> Detect any running FTP-related services.</li>
+                    <li><strong>Review Scheduled Tasks:</strong> List all enabled scheduled tasks that may be suspicious.</li>
+                    <li><strong>Examine Recent Event Logs:</strong> Review recent Application and System event logs.</li>
+                    <li><strong>Disable SMBv1 Protocol:</strong> Disable SMBv1 to prevent remote exploitation vulnerabilities.</li>
+                    <li><strong>Process Review:</strong> List all running processes for manual review.</li>
+                </ol>
+                <p><strong>Output:</strong> <code>diagnostics/diagnostics7.txt</code></p>
+            </div>
+
+            <section class="note-section">
+                <h2>Important Notes</h2>
+                <ul>
+                    <li>Run all scripts with Administrator privileges.</li>
+                    <li>Scripts should be run in order: 1, 3, 4, 5, 6, 7 (Step 2 is manual forensics).</li>
+                    <li>Step 4 requires manual configuration of <code>authusers.txt</code> before the second run.</li>
+                    <li>All scripts generate diagnostics files in the <code>diagnostics/</code> subdirectory.</li>
+                    <li><strong>Diagnostics files are appended to</strong> (not overwritten) - maintaining a complete audit trail.</li>
+                </ul>
+            </section>
 
             <section class="note-section">
                 <h2>Common Problems</h2>
