@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Server CyberPatriot Image Hardening</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Windows Server CyberPatriot Image Hardening</h1>
+            <p class="subtitle">Comprehensive security hardening guide for Windows Server systems</p>
+        </header>
+
+        <main>
+            <section class="intro">
+                <p>This guide provides a step-by-step approach to hardening a Windows Server CyberPatriot image for security. Each step includes specific tasks and scripts aimed at improving the security posture of the system. The extended version can be found <a href="https://github.com/aidanlenahan/cyberpatriot/tree/win-server" target="_blank">here</a>.</p>
+            </section>
+
+            <div class="task-section">
+                <h2>Step 0 - Initial Setup</h2>
+                <h3>Tasks:</h3>
+                <ul>
+                    <li><strong>Create Required Groups:</strong> Set up the necessary user groups.</li>
+                    <li><strong>Create Required Users:</strong> Create the required user accounts.</li>
+                    <li><strong>Install Necessary Programs:</strong> Ensure all required software is installed on the system.</li>
+                </ul>
+            </div>
+
+            <div class="task-section">
+                <h2><a href="https://github.com/aidanlenahan/cyberpatriot/tree/win-server" target="_blank">Step 1 - Initialization</a></h2>
+                <h3>Tasks:</h3>
+                <ol>
+                    <li><strong>Set Script Execution Policy:</strong>
+                        <br>Make <code>.ps1</code> scripts executable with the command:
+                        <pre><code>Set-ExecutionPolicy Unrestricted -Scope LocalMachine</code></pre>
+                    </li>
+                    <li><strong>View Hidden Files:</strong> Enable the visibility of all hidden files.</li>
+                    <li><strong>Enable File Extension Editing:</strong> Allow file extensions to be editable.</li>
+                    <li><strong>Answer Forensics Questions:</strong> Complete any provided forensics questions.</li>
+                </ol>
+                <p><strong>Output:</strong> <code>diagnostics/diagnostics1.txt</code></p>
+            </div>
+
+            <div class="task-section">
+                <h2>Step 2 - Forensics Tools</h2>
+                <h3>Recommended Resources:</h3>
+                <ul class="resources-list">
+                    <li>CyberChef</li>
+                    <li>ChatGPT</li>
+                    <li>Cryptii</li>
+                    <li>GitHub Copilot</li>
+                </ul>
+            </div>
+
+            <div class="task-section">
+                <h2><a href="https://github.com/aidanlenahan/cyberpatriot/tree/win-server" target="_blank">Step 3 - Basic Security</a></h2>
+                <h3>Tasks:</h3>
+                <ol>
+                    <li><strong>Enable Firewall:</strong> Ensure the Windows Firewall is turned on for Domain, Public, and Private profiles.</li>
+                    <li><strong>Enable Real-Time Protection:</strong> Verify that Windows Defender real-time protection is enabled.</li>
+                    <li><strong>List File Shares:</strong> List all SMB shares on the system for review.</li>
+                    <li><strong>Remove Unwanted Software:</strong> Detect and identify unauthorized software including:
+                        <ul>
+                            <li>Wireshark, CCleaner, Npcap, PC Cleaner, Network Stumbler, L0phtCrack, JDownloader, and games.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Remove Unwanted Files:</strong> Identify media and document files that may be unauthorized:
+                        <ul>
+                            <li>Audio/Video: mp3, mp4, mov, wav, aac, flac, mkv</li>
+                            <li>Images: png, jpeg, jpg, gif, tiff, bmp</li>
+                            <li>Documents: pdf, doc, docx</li>
+                            <li>Executables: exe, msi, cmd</li>
+                        </ul>
+                    </li>
+                </ol>
+                <p><strong>Output:</strong> <code>diagnostics/diagnostics3.txt</code></p>
+            </div>
+
+            <div class="task-section">
+                <h2><a href="https://github.com/aidanlenahan/cyberpatriot/tree/win-server" target="_blank">Step 4 - Users and Groups</a></h2>
+                <h3>Tasks:</h3>
+                <ol>
+                    <li><strong>Disable Unauthorized Users:</strong> Disable any local users not in the authorized users list.</li>
+                    <li><strong>Manage Administrators Group:</strong> Ensure only authorized administrators are in the Administrators group.</li>
+                    <li><strong>Disable Guest and Administrator Accounts:</strong> Disable both the default Guest and Administrator accounts.</li>
+                    <li><strong>Set User Passwords:</strong> Apply a standardized password for all local users.</li>
+                    <li><strong>Disable Password Never Expires:</strong> Ensure no accounts have "Password Never Expires" enabled.</li>
+                </ol>
+                <h3>How to Execute This Script:</h3>
+                <ol>
+                    <li><strong>Run the script <code>step4.ps1</code> first.</strong> It will create a template file named <code>authusers.txt</code>.</li>
+                    <li><strong>Edit <code>authusers.txt</code></strong> with the list of authorized users from the README.</li>
+                    <li><strong>Run <code>step4.ps1</code> again</strong> to apply changes.</li>
+                    <li><strong>Check <code>diagnostics/diagnostics4.txt</code></strong> for updates.</li>
+                </ol>
+                <p><strong>Output:</strong> <code>diagnostics/diagnostics4.txt</code></p>
+            </div>
+
+            <div class="task-section">
+                <h2><a href="https://github.com/aidanlenahan/cyberpatriot/tree/win-server" target="_blank">Step 5 - Services</a></h2>
+                <h3>Tasks:</h3>
+                <p><strong>Disable Unnecessary Services:</strong> Check and disable the following potentially insecure services:</p>
+                <ul>
+                    <li>Remote Registry (allows remote registry modification)</li>
+                    <li>Remote Desktop Services / TermService (enables RDP)</li>
+                    <li>Telephony (TapiSrv - legacy devices)</li>
+                    <li>FTP Server Service (FTPSVC)</li>
+                    <li>SNMP Trap Service (SNMPTRAP)</li>
+                    <li>SMTP Service (SMTPSVC)</li>
+                    <li>Infrared Monitor Service (irmon)</li>
+                    <li>Plug and Play Service (PlugPlay)</li>
+                </ul>
+                <p><strong>Output:</strong> <code>diagnostics/diagnostics5.txt</code></p>
+            </div>
+
+            <div class="task-section">
+                <h2><a href="https://github.com/aidanlenahan/cyberpatriot/tree/win-server" target="_blank">Step 6 - Miscellaneous (Interactive)</a></h2>
+                <h3>Options:</h3>
+                <ol>
+                    <li><strong>Disable ALL RDP Settings:</strong> Disable Terminal Services and deny RDP connections.</li>
+                    <li><strong>Check for Open Ports:</strong> Identify non-standard open ports (excluding 80, 443, 3389).</li>
+                    <li><strong>Enable Automatic Windows Updates:</strong> Configure automatic updates through Group Policy.</li>
+                    <li><strong>Configure INF Template:</strong> Apply security settings from Win10_Template.inf.</li>
+                    <li><strong>Disable Web Server Services:</strong> Turn off World Wide Web Publishing Service (W3SVC).</li>
+                    <li><strong>Disable SSH Service:</strong> Turn off SSH (sshd) service.</li>
+                    <li><strong>A. Perform ALL Actions:</strong> Execute all security measures at once.</li>
+                </ol>
+                <p><strong>Note:</strong> This script is interactive. You can select individual options or choose 'A' to perform all actions. Use <code>-RunAll</code> parameter for non-interactive mode.</p>
+                <p><strong>Output:</strong> <code>diagnostics/diagnostics6.txt</code></p>
+            </div>
+
+            <div class="task-section">
+                <h2><a href="https://github.com/aidanlenahan/cyberpatriot/tree/win-server" target="_blank">Step 7 - Points Hunting</a></h2>
+                <h3>Tasks:</h3>
+                <p><strong>Comprehensive Security Audit:</strong></p>
+                <ol>
+                    <li><strong>Check for Suspicious Processes:</strong> Detect potentially malicious processes including:
+                        <ul>
+                            <li>nc, netcat, ncat (network tools)</li>
+                            <li>vncviewer, teamviewer, anydesk (remote access)</li>
+                            <li>xmr-stak, kismet, wireshark, putty</li>
+                        </ul>
+                    </li>
+                    <li><strong>Identify Open Ports:</strong> List all listening TCP ports for review.</li>
+                    <li><strong>Check for FTP Services:</strong> Detect any running FTP-related services.</li>
+                    <li><strong>Review Scheduled Tasks:</strong> List all enabled scheduled tasks.</li>
+                    <li><strong>Examine Recent Event Logs:</strong> Review recent Security event logs.</li>
+                    <li><strong>Disable SMBv1 Protocol:</strong> Disable SMBv1 to prevent remote exploitation vulnerabilities.</li>
+                </ol>
+                <p><strong>Output:</strong> <code>diagnostics/diagnostics7.txt</code></p>
+            </div>
+
+            <section class="note-section">
+                <h2>Important Notes</h2>
+                <ul>
+                    <li>Run all scripts with Administrator privileges.</li>
+                    <li>Scripts should be run in order: 1, 3, 4, 5, 6, 7 (Step 2 is manual forensics).</li>
+                    <li>Step 4 requires manual configuration of <code>authusers.txt</code> before the second run.</li>
+                    <li>Step 6 is interactive and presents a menu of options.</li>
+                    <li>All scripts generate diagnostics files in the <code>diagnostics/</code> subdirectory.</li>
+                    <li><strong>Diagnostics files are appended to</strong> (not overwritten) - maintaining a complete audit trail.</li>
+                    <li>Logs are also saved to <code>C:\CyberPatriot\Logs\</code> for transcript logging.</li>
+                </ul>
+            </section>
+
+            <section class="note-section">
+                <h2>Windows Server Baselines</h2>
+                <p>This branch includes Windows Server security baselines in the <code>critical-files/</code> directory:</p>
+                <ul>
+                    <li>Windows Server 2022 Security Baseline</li>
+                    <li>LGPO configurations for server hardening</li>
+                    <li>CIS benchmark reports</li>
+                </ul>
+            </section>
+
+            <section class="note-section">
+                <h2>Common Problems</h2>
+                <p>After applying the INF part of step 6, it may be difficult to install <code>.exe</code> or <code>.msi</code>. If this is the case, use <code>msiexec /i "C:\path\to\package.msi"</code> in an admin Command Prompt.</p>
+            </section>
+
+            <section class="license-section">
+                <h2>License</h2>
+                <p>This guide is designed for use in CyberPatriot competitions and may be adapted for other cybersecurity competitions or educational purposes.</p>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 CyberPatriot Security Guides</p>
+        </footer>
+    </div>
+</body>
+</html>
