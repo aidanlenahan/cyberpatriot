@@ -1,37 +1,60 @@
-These guides provide a step-by-step approach to hardening a CyberPatriot image for security. Each step includes specific tasks and scripts aimed at improving the security posture of the system.
+# CyberPatriot Image Hardening Guides
+
+These guides provide a step-by-step approach to hardening CyberPatriot images for security. Each step includes specific tasks and scripts aimed at improving the security posture of the system.
 
 ---
 
 ## Windows Guide
-This Windows guide is written in Powershell. The extended version can be found [here](https://github.com/aidanlenahan/cyberpatriot/tree/windows).
+This Windows guide is written in PowerShell. The extended version can be found [here](https://github.com/aidanlenahan/cyberpatriot/tree/windows).
 
-0. Initial Setup
-1. Initialization
-2. Forensics
-3. Basic Security
-4. Users and Groups
-5. Services
-6. Miscellaneous
-7. Points Hunting
+| Step | Name | Description |
+|------|------|-------------|
+| 0 | Initial Setup | Create required groups, users, and install necessary programs |
+| 1 | Initialization | Set execution policy, enable hidden files, show file extensions |
+| 2 | Forensics | Use tools like CyberChef, ChatGPT, Cryptii for forensics questions |
+| 3 | Basic Security | Enable firewall, Windows Defender, remove bad shares and unwanted files |
+| 4 | Users and Groups | Disable unauthorized users, manage admin group, disable Guest/Administrator |
+| 5 | Services | Disable unnecessary services (Remote Registry, RDP, FTP, SNMP, etc.) |
+| 6 | Miscellaneous | Disable RDP, check open ports, enable auto-updates, apply security policies |
+| 7 | Points Hunting | Check suspicious processes, open ports, FTP services, scheduled tasks, disable SMBv1 |
+
+---
+
+## Windows Server Guide
+This Windows Server guide is written in PowerShell. The extended version can be found [here](https://github.com/aidanlenahan/cyberpatriot/tree/win-server).
+
+| Step | Name | Description |
+|------|------|-------------|
+| 0 | Initial Setup | Create required groups, users, and install necessary programs |
+| 1 | Initialization | Set execution policy, enable hidden files, show file extensions |
+| 2 | Forensics | Use tools like CyberChef, ChatGPT, Cryptii for forensics questions |
+| 3 | Basic Security | Enable firewall, Windows Defender, remove bad shares and unwanted files |
+| 4 | Users and Groups | Disable unauthorized users, manage admin group, disable Guest/Administrator |
+| 5 | Services | Disable unnecessary services (Remote Registry, RDP, FTP, SNMP, etc.) |
+| 6 | Miscellaneous | Disable RDP, check open ports, enable auto-updates, apply security policies |
+| 7 | Points Hunting | Check suspicious processes, open ports, FTP services, scheduled tasks, disable SMBv1 |
 
 ---
 
 ## Linux Guide
 This Linux guide is written in Bash. The extended version can be found [here](https://github.com/aidanlenahan/cyberpatriot/tree/linux).
 
-0. Initial Setup
-1. Inintialization
-2. Forensics
-3. Basic Security
-4. Users and Groups
-5. Services
-6. Miscellaneous
-7. Points Hunting
+| Step | Name | Description |
+|------|------|-------------|
+| 0 | Initial Setup | Create required groups, users, and install necessary programs |
+| 1 | Initialization | Configure file manager, document system state, create backups |
+| 2 | Forensics | Use tools like CyberChef, ChatGPT, Cryptii for forensics questions |
+| 3 | Basic Security | Enable firewall, automatic updates, scan for media files and unwanted apps |
+| 4 | Users and Groups | Disable unauthorized users, manage sudo permissions, configure password policies |
+| 5 | Services | Disable unnecessary services (FTP, Telnet, rsync), secure SSH |
+| 6 | Miscellaneous | Interactive menu for additional security configurations |
+| 7 | Points Hunting | Comprehensive security audit including processes, ports, cron jobs, SUID files |
+| 8 | PAM Configuration | Configure password complexity and account lockout (run last!) |
 
 ---
 
 ## Note
-This repository extends the its predessesor that can be found [here](https://github.com/aidanlenahan/dev/tree/main/ps/cyberpatriot/masterbible24-25/windows). This evolved from just another coding project to a bigger project which has become much more helpful and useful than I initially thought, so I put it in it's own repository.
+This repository extends its predecessor that can be found [here](https://github.com/aidanlenahan/dev/tree/main/ps/cyberpatriot/masterbible24-25/windows). This evolved from just another coding project to a bigger project which has become much more helpful and useful than I initially thought, so I put it in its own repository.
 
 ---
 
