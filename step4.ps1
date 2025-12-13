@@ -6,11 +6,17 @@
 # Get the current directory path
 $scriptDir = (Get-Location).Path
 
-# Define file paths
-$diagnosticsFile = "$scriptDir\diagnostics4.txt"
+# Define diagnostics folder and file paths
+$diagnosticsFolder = Join-Path $scriptDir "diagnostics"
+$diagnosticsFile = Join-Path $diagnosticsFolder "diagnostics4.txt"
 $authUsersFile = "$scriptDir\authusers.txt"
 
-# Function to log changes to diagnostics4.txt
+# Create diagnostics folder if it doesn't exist
+if (-not (Test-Path $diagnosticsFolder)) {
+    New-Item -Path $diagnosticsFolder -ItemType Directory -Force | Out-Null
+}
+
+# Function to log changes to diagnostics4.txt (appends to file)
 function Log-Diagnostics {
     param (
         [string]$message

@@ -1,13 +1,16 @@
 # PowerShell Script for System Diagnostics and Configuration
-# Save this script as `diagnostics6.ps1`
+# Save this script as `step6.ps1`
 
-# Define the log file path
-$logFile = "$PSScriptRoot\diagnostics6.txt"
+# Define the diagnostics folder and log file path
+$diagnosticsFolder = Join-Path $PSScriptRoot "diagnostics"
+$logFile = Join-Path $diagnosticsFolder "diagnostics6.txt"
 
-# Clear the log file at the start
-# Clear-Content $logFile -ErrorAction SilentlyContinue
+# Create diagnostics folder if it doesn't exist
+if (-not (Test-Path $diagnosticsFolder)) {
+    New-Item -Path $diagnosticsFolder -ItemType Directory -Force | Out-Null
+}
 
-# Function to log messages with formatting
+# Function to log messages with formatting (appends to file)
 function Log-Message {
     param (
         [string]$message
@@ -29,11 +32,15 @@ function Disable-RDPSettings {
 # Option 2: Look for all open ports aside from the default
 function Check-OpenPorts {
     Log-Message "Checking for open ports aside from the default"
-    $openPorts = netstat -an | Select-String "LISTENING" | Select-String -NotMatch "80|443|3389"
-    if ($openPorts) {
-        $openPorts | ForEach-Object { Log-Message "Open port found: $_" }
-    } else {
-        Log-Message "No unusual open ports found."
+    try {
+        $openPorts = Get-NetTCPConnection -State Listen | Where-Object { $_.LocalPort -notin 80, 443, 3389 }
+        if ($openPorts) {
+            $openPorts | ForEach-Object { Log-Message "Open port found: $($_.LocalPort) on $($_.LocalAddress)" }
+        } else {
+            Log-Message "No unusual open ports found."
+        }
+    } catch {
+        Log-Message "Error checking open ports: $($_.Exception.Message)"
     }
 }
 
@@ -118,4 +125,4 @@ switch ($choice) {
     default { Write-Host "Invalid option selected" }
 }
 
-Write-Host "Actions completed. Check the diagnostics6.txt file for details."
+Write-Host "Actions completed. Check the diagnostics/diagnostics6.txt file for details."
