@@ -1,0 +1,45 @@
+Instructions:
+
+1) Type the answer to the question in place of <Type Answer Here>
+
+2) Save the file (you will not receive credit until the file is saved)
+
+Example question (not scored):
+
+What was the name of the Lone Ranger's horse?
+
+ANSWER: <Type Answer Here>
+
+After correctly answering the question, the example question would look like:
+
+What was the name of the Lone Ranger's horse?
+
+ANSWER: Silver
+
+If the question has more than one answer, place each answer on a separate line,
+for example:
+
+What was the name of the Lone Ranger's horse?
+
+ANSWER: Silver
+ANSWER: Dusty
+
+Remember to save the file after answering. The scored question appears below.
+
+===============================================================================
+
+During a recent automated network scan, the SOC team noticed an endpoint that
+is leaking PHP configuration information. The endpoint is below:
+
+http://localhost/phpinfo.php
+
+Please identify the file responsible for generating this page. After locating
+the file and answering the question, please ensure to remove this file from
+the system to prevent further information leakage.
+
+What comment is found inside of this file?
+
+( EXAMPLE: I think louis knows. )
+
+ANSWER: Is that dramatic enough for you?
+

@@ -1,0 +1,39 @@
+Instructions:
+
+1) Type the answer to the question in place of <Type Answer Here>
+
+2) Save the file (you will not receive credit until the file is saved)
+
+Example question (not scored):
+
+What was the name of the Lone Ranger's horse?
+
+ANSWER: <Type Answer Here>
+
+After correctly answering the question, the example question would look like:
+
+What was the name of the Lone Ranger's horse?
+
+ANSWER: Silver
+
+If the question has more than one answer, place each answer on a separate line,
+for example:
+
+What was the name of the Lone Ranger's horse?
+
+ANSWER: Silver
+ANSWER: Dusty
+
+Remember to save the file after answering. The scored question appears below.
+
+===============================================================================
+
+During the same network scan, the SOC team also identified a PHP endpoint that
+is responsible for creating reverse shell network connections.
+
+What is the port that this reverse shell is attempting to connect to?
+
+( EXAMPLE: 8374 )
+
+ANSWER: 67
+
