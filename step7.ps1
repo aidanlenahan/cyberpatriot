@@ -1,9 +1,16 @@
-# PowerShell Script: diagnostics7.ps1
-# Creates diagnostics7.txt and logs changes, appending each time the script is run.
+# PowerShell Script: step7.ps1
+# Creates diagnostics7.txt in the diagnostics folder and logs changes, appending each time the script is run.
 
-$diagnosticsFile = ".\diagnostics7.txt"
+# Define the diagnostics folder and file path
+$diagnosticsFolder = Join-Path $PSScriptRoot "diagnostics"
+$diagnosticsFile = Join-Path $diagnosticsFolder "diagnostics7.txt"
 
-# Function to write to diagnostics file in a neat format
+# Create diagnostics folder if it doesn't exist
+if (-not (Test-Path $diagnosticsFolder)) {
+    New-Item -Path $diagnosticsFolder -ItemType Directory -Force | Out-Null
+}
+
+# Function to write to diagnostics file in a neat format (appends to file)
 function Write-Diagnostics {
     param (
         [string]$text

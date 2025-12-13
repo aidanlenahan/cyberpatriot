@@ -1,8 +1,14 @@
 # This script completes step 5 of Windows in Cyberpatriot.
 # https://docs.google.com/document/d/e/2PACX-1vT2zjA8CaPWgSmMfjuAQXL91jd2ioXfFl3J_zvzhtXNg7lFbNFENRbakHlqrodOCvrJ8hJ_O5YRnCyt/pub
 
-# Define the path for the diagnostics report
-$diagnosticsFile = "$PSScriptRoot\diagnostics5.txt"
+# Define the diagnostics folder and file path
+$diagnosticsFolder = Join-Path $PSScriptRoot "diagnostics"
+$diagnosticsFile = Join-Path $diagnosticsFolder "diagnostics5.txt"
+
+# Create diagnostics folder if it doesn't exist
+if (-not (Test-Path $diagnosticsFolder)) {
+    New-Item -Path $diagnosticsFolder -ItemType Directory -Force | Out-Null
+}
 
 # Append a new section header to the diagnostics file with the date and time
 "" | Out-File -FilePath $diagnosticsFile -Append
@@ -50,4 +56,4 @@ foreach ($serviceName in $servicesToCheck.Keys) {
 
 # Notify completion
 "--- End of Report ---" | Out-File -FilePath $diagnosticsFile -Append
-Write-Output "Diagnostics report appended to $diagnosticsFile"
+Write-Output "Diagnostics report appended to diagnostics/diagnostics5.txt"

@@ -1,12 +1,20 @@
 # This script completes step 3 of Windows in Cyberpatriot
 # https://docs.google.com/document/d/e/2PACX-1vT2zjA8CaPWgSmMfjuAQXL91jd2ioXfFl3J_zvzhtXNg7lFbNFENRbakHlqrodOCvrJ8hJ_O5YRnCyt/pub
 
-# Define the diagnostics file path
+# Define the diagnostics folder and file path
 $scriptPath = $MyInvocation.MyCommand.Path
-$diagnosticsFile = Join-Path (Split-Path $scriptPath) "diagnostics3.txt"
+$scriptDir = Split-Path $scriptPath
+$diagnosticsFolder = Join-Path $scriptDir "diagnostics"
+$diagnosticsFile = Join-Path $diagnosticsFolder "diagnostics3.txt"
 
-# Initialize diagnostics3.txt with a header
-"========== SYSTEM DIAGNOSTICS REPORT ==========" | Out-File $diagnosticsFile
+# Create diagnostics folder if it doesn't exist
+if (-not (Test-Path $diagnosticsFolder)) {
+    New-Item -Path $diagnosticsFolder -ItemType Directory -Force | Out-Null
+}
+
+# Append header to diagnostics file (do not overwrite)
+"" | Out-File $diagnosticsFile -Append
+"========== SYSTEM DIAGNOSTICS REPORT ==========" | Out-File $diagnosticsFile -Append
 "Generated on: $(Get-Date)" | Out-File $diagnosticsFile -Append
 "" | Out-File $diagnosticsFile -Append
 
@@ -69,5 +77,5 @@ if (-not $unwantedFound) {
 "" | Out-File $diagnosticsFile -Append
 
 # Complete the script
-Write-Host "Script completed. Check 'diagnostics3.txt' for results." -ForegroundColor Green
+Write-Host "Script completed. Check 'diagnostics/diagnostics3.txt' for results." -ForegroundColor Green
 "=== Script completed on: $(Get-Date) ===" | Out-File $diagnosticsFile -Append

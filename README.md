@@ -58,6 +58,9 @@ This guide provides a step-by-step approach to hardening a Windows CyberPatriot 
 6. **Configure In-Browser Security:**
    - Use the most secure DNS and ensure HTTPS is always used.
 
+### Output:
+- `diagnostics/diagnostics3.txt`
+
 ---
 
 ## [Step 4 - Users and Groups](https://raw.githubusercontent.com/aidanlenahan/dev/refs/heads/main/ps/cyberpatriot/masterbible24-25/windows/step4.ps1)
@@ -74,7 +77,10 @@ This guide provides a step-by-step approach to hardening a Windows CyberPatriot 
 2. **Format the user list:** Use ChatGPT with the provided prompt to convert the readme user list into the format recognized by the script.
 3. **Copy ChatGPT’s Output to `authusers.txt`.**
 4. **Run `step4.ps1` again** to apply changes.
-5. **Check `diagnostics4.txt`** for updates.
+5. **Check `diagnostics/diagnostics4.txt`** for updates.
+
+### Output:
+- `diagnostics/diagnostics4.txt`
 
 ---
 
@@ -90,6 +96,9 @@ This guide provides a step-by-step approach to hardening a Windows CyberPatriot 
   - Infrared Monitor Service
   - Plug and Play
 
+### Output:
+- `diagnostics/diagnostics5.txt`
+
 ---
 
 ## [Step 6 - Miscellaneous](https://raw.githubusercontent.com/aidanlenahan/dev/refs/heads/main/ps/cyberpatriot/masterbible24-25/windows/step6.ps1)
@@ -102,6 +111,49 @@ This guide provides a step-by-step approach to hardening a Windows CyberPatriot 
    - Configure updates through **Group Policy Editor (gpedit.msc)**.
 4. **Apply Windows Security Policies (SecPol):**
    - Use **MMC** (Microsoft Management Console) to configure security policies with `.inf` files.
+5. **Disable Web Server Services:**
+   - Turn off World Wide Web Publishing Service (W3SVC) if not required.
+6. **Disable SSH Service:**
+   - Turn off SSH (sshd) service if not required.
+
+### Output:
+- `diagnostics/diagnostics6.txt`
+
+---
+
+## [Step 7 - Points Hunting](step7.ps1)
+### Tasks:
+**Comprehensive Security Audit:**
+1. **Check for Suspicious Processes:**
+   - Detect potentially malicious processes including:
+     - nc.exe, netcat, ncat (network tools)
+     - vncviewer, teamviewer, anydesk (remote access)
+     - xmr-stak, kismet (cryptocurrency miners, network sniffers)
+2. **Identify Open Ports:**
+   - List all listening TCP ports for review.
+3. **Check for FTP Services:**
+   - Detect any running FTP-related services.
+4. **Review Scheduled Tasks:**
+   - List all enabled scheduled tasks that may be suspicious.
+5. **Examine Recent Event Logs:**
+   - Review recent Application and System event logs.
+6. **Disable SMBv1 Protocol:**
+   - Disable SMBv1 to prevent remote exploitation vulnerabilities.
+7. **Process Review:**
+   - List all running processes for manual review against processlibrary.com.
+
+### Output:
+- `diagnostics/diagnostics7.txt`
+
+---
+
+## Important Notes
+- Run all scripts with Administrator privileges.
+- Scripts should be run in order: 1, 3, 4, 5, 6, 7 (Step 2 is manual forensics).
+- Step 4 requires manual configuration of `authusers.txt` before the second run.
+- All scripts generate diagnostics files in the `diagnostics/` subdirectory.
+- **Diagnostics files are appended to** (not overwritten) - maintaining a complete audit trail.
+
 ---
 
 ## Common Problems
