@@ -45,13 +45,13 @@ Event Viewer tells us *why* something is broken, not just that it is broken. Loo
 3. Services.msc
   - Services deemed critical in README
   - Windows Defender Antivirus
-    > Startup type: Automatic
-    > Start Service
+    > Startup type: Automatic<br>
+    > Start Service<br>
     > Re-enable real time protection
   - Windows Firewall
     > **Domain profile must be active**
-    > Start service
-    > Ensure firewall enabled for Domain profile
+    > Start service<br>
+    > Ensure firewall enabled for Domain profile<br>
     > Go through "Allow an app through firewall"
   - DNS Server *(unlikely as this breaking prevents logging in)*
 4. gpresult /r
