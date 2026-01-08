@@ -55,7 +55,7 @@ Event Viewer tells us *why* something is broken, not just that it is broken. Loo
     > Go through "Allow an app through firewall"
   - DNS Server *(unlikely as this breaking prevents logging in)*
 4. gpresult /r
-    > Tells you which GPOs are applied, which are denied, and whether Group Policy is functioning or not
+    > Tells you which GPOs are applied, which are denied, and whether Group Policy is functioning or not<br>
     > **If PowerShell, cmd, Defender, or firewall are disabled, this tells you which GPO disabled them**
 ## Dealing with Round 4 Hurdles
 Of course CyberPatriot Round 4 is not meant to be easy. The AFA tends to add (or remove) things onto the VMs increasingly more throughout the competition season. Since Round 4 is the last "regular season" round, it's by far the hardest (excluding nationals).<br>
