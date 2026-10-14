@@ -1,4 +1,5 @@
 # CyberPatriot Image Hardening Guides
+**NOTE: Archived October 2026. This repo was a private resource I had developed during my time as a Cyberpatriot competitor, but that time is over, so I thought I'd make it a public archive. Enjoy!**
 
 These guides provide a step-by-step approach to hardening CyberPatriot images for security. Each step includes specific tasks and scripts aimed at improving the security posture of the system.
 
