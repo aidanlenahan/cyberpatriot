@@ -1,5 +1,5 @@
 # CyberPatriot Image Hardening Guides
-**NOTE: Archived October 2026. This repo was a private resource I had developed during my time as a Cyberpatriot competitor, but that time is over, so I thought I'd make it a public archive. Enjoy!**
+**NOTE: Archived October 2026. This repo was a private resource I had developed during my time as a Cyberpatriot competitor, but that time is over, so I thought I'd make it a public archive. See my CyberPatriot experience [here]([https://aidanlenahan.com/blog/articles/](https://aidanlenahan.com/blog/articles/cyberpatriot). Enjoy!**
 
 
 ---
