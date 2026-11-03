@@ -57,8 +57,21 @@ This Linux guide is written in Bash. The extended version can be found [here](ht
 
 ---
 
+## Legacy Scripts
+The [`legacy/`](legacy) folder holds my original CyberPatriot scripts, which used to live in my [dev](https://github.com/aidanlenahan/dev) repository. I brought them here so all of my CyberPatriot work is in one place. They're kept as they were and are not maintained.
+
+| Path | Contents |
+|------|----------|
+| [`legacy/batch/`](legacy/batch) | Early batch scripts: change all user passwords (`allPwdChange.bat`), apply/analyze a security template with `secedit` (`secApply.bat`, `sec-analysis.inf`), and reference links in `source/` |
+| [`legacy/powershell/masterbible24-25/windows/`](legacy/powershell/masterbible24-25/windows) | The 2024-25 "master bible" Windows guide, the predecessor to the guides above |
+| [`legacy/powershell/all-passwd.ps1`](legacy/powershell/all-passwd.ps1) | Turns off "Password never expires" and sets one password for all local users |
+| [`legacy/powershell/firewall-simple.ps1`](legacy/powershell/firewall-simple.ps1) | Basic Windows Firewall setup for all profiles, with logging |
+| [`legacy/powershell/password-expires.ps1`](legacy/powershell/password-expires.ps1) | Turns off "Password never expires" for all enabled local users |
+
+---
+
 ## Note
-This repository extends its predecessor that can be found [here](https://github.com/aidanlenahan/dev/tree/main/ps/cyberpatriot/masterbible24-25/windows). This evolved from just another coding project to a bigger project which has become much more helpful and useful than I initially thought, so I put it in its own repository.
+This repository extends its predecessor, which can now be found in [`legacy/powershell/masterbible24-25/windows`](legacy/powershell/masterbible24-25/windows). This evolved from just another coding project to a bigger project which has become much more helpful and useful than I initially thought, so I put it in its own repository.
 
 ---
 
