@@ -1,0 +1,230 @@
+# This is a security config and analysis file. To apply it, [Win+R] > type "secpol.msc" > File > Add/Remove Snap-In
+# Then, select security settings and import (analyze) policy by right clicking on it in the left hand menu
+# Apply: right click and configure
+
+# Policies covered in this file:
+# Password History 5 Days
+# Maximum Password age 30-90 days
+# Minimum Password age 5 days
+# Minimum Password Length 8 char.
+# Password Complexity Enabled
+# Reverse Encryptions Disabled Account Lockout Policies( Right under Password policies)
+# Account Lockout Duration 30 minutes
+# Account Lockout Threshold 3
+# Reset account lockout counter 30 minutes Set up Windows Audit Policies (Right under Account Polices in Local Policies)
+# Audit Logon Events Failure
+# Audit Account Management Success
+# Audit Directory Service ND
+# Audit logon Events Failure
+# Audit Objects Access ND
+# Audit Policy Change Success
+# Audit Privilege use success failure
+# Audit Process tracking Success Failure
+# Audit System Events failure Security Options (Beneath User Rights Assignment in Local Policies)
+# Disable Administrator account
+# Disable Guest account
+# Rename administrator and guest accounts
+# Shutdown Without Log on
+
+[Unicode]
+Unicode=yes
+
+[Version]
+signature="$CHICAGO$"
+Revision=1
+
+[Privilege Rights]
+
+[Profile Description]
+Description="Custom Security Template for Password, Account, Audit, and Security Policies"
+
+[Policy Statement]
+POLICY_ACCOUNT_DOMAIN = (DESID_SECURE | DESID_DOMAIN)
+
+[User Rights]
+
+[Version]
+signature="$CHICAGO$"
+Revision=1
+
+[Service General Setting]
+
+[System Access]
+MinimumPasswordAge = 5
+MaximumPasswordAge = 90
+MinimumPasswordLength = 8
+PasswordComplexity = 1
+PasswordHistorySize = 5
+
+[Event Audit]
+AuditLogonEvents = 4,0
+AuditAccountManage = 8,0
+AuditDSAccess = 0,0
+AuditLogonEvents = 4,0
+AuditObjectAccess = 0,0
+AuditPolicyChange = 8,0
+AuditPrivilegeUse = 8,0
+AuditProcessTracking = 8,0
+AuditSystemEvents = 0,0
+
+[Registry Values]
+
+[Version]
+signature="$CHICAGO$"
+Revision=1
+
+[Code Signing]
+
+[Event Audit]
+
+[Registry Values]
+
+[Unicode]
+Unicode=yes
+
+[Version]
+signature="$CHICAGO$"
+Revision=1
+
+[Profile Description]
+Description="Custom Security Template for Password, Account, Audit, and Security Policies"
+
+[Policy Statement]
+POLICY_ACCOUNT_DOMAIN = (DESID_SECURE | DESID_DOMAIN)
+
+[User Rights]
+
+[Version]
+signature="$CHICAGO$"
+Revision=1
+
+[Service General Setting]
+
+[System Access]
+
+[Event Audit]
+
+[Registry Values]
+
+[Version]
+signature="$CHICAGO$"
+Revision=1
+
+[Code Signing]
+
+[Event Audit]
+
+[Registry Values]
+
+[Unicode]
+Unicode=yes
+
+[Version]
+signature="$CHICAGO$"
+Revision=1
+
+[Profile Description]
+Description="Custom Security Template for Password, Account, Audit, and Security Policies"
+
+[Policy Statement]
+POLICY_ACCOUNT_DOMAIN = (DESID_SECURE | DESID_DOMAIN)
+
+[User Rights]
+
+[Version]
+signature="$CHICAGO$"
+Revision=1
+
+[Service General Setting]
+
+[System Access]
+
+[Event Audit]
+
+[Registry Values]
+
+[Registry Values]
+
+[Account Lockout]
+LockoutBadCount = 3
+ResetLockoutCount = 30
+LockoutDuration = 30
+
+[Unicode]
+Unicode=yes
+
+[Version]
+signature="$CHICAGO$"
+Revision=1
+
+[Profile Description]
+Description="Custom Security Template for Password, Account, Audit, and Security Policies"
+
+[Policy Statement]
+POLICY_ACCOUNT_DOMAIN = (DESID_SECURE | DESID_DOMAIN)
+
+[User Rights]
+
+[Version]
+signature="$CHICAGO$"
+Revision=1
+
+[Service General Setting]
+
+[System Access]
+
+[Event Audit]
+
+[Registry Values]
+
+[Registry Values]
+
+[Audit Events]
+0 = 4,0
+8 = 0,0
+16 = 0,0
+32 = 4,0
+64 = 0,0
+128 = 8,0
+256 = 8,0
+512 = 8,0
+1024 = 0,0
+
+[Unicode]
+Unicode=yes
+
+[Version]
+signature="$CHICAGO$"
+Revision=1
+
+[Profile Description]
+Description="Custom Security Template for Password, Account, Audit, and Security Policies"
+
+[Policy Statement]
+POLICY_ACCOUNT_DOMAIN = (DESID_SECURE | DESID_DOMAIN)
+
+[User Rights]
+
+[Version]
+signature="$CHICAGO$"
+Revision=1
+
+[Service General Setting]
+
+[System Access]
+
+[Event Audit]
+
+[Registry Values]
+
+[Registry Values]
+
+[Security Options]
+MACHINE\System\CurrentControlSet\Control\Lsa\NoLMHash = 1
+MACHINE\System\CurrentControlSet\Control\Lsa\LimitBlankPasswordUse = 1
+MACHINE\System\CurrentControlSet\Control\Lsa\AuditBaseObjects = 0
+MACHINE\System\CurrentControlSet\Control\Lsa\FullPrivilegeAuditing = 0
+MACHINE\System\CurrentControlSet\Control\Lsa\ForceGuest = 0
+MACHINE\System\CurrentControlSet\Control\Lsa\DisableAdminAccount = 1
+MACHINE\System\CurrentControlSet\Control\Lsa\LimitBlankPasswordUse = 1
+MACHINE\System\CurrentControlSet\Control\Lsa\EnableLUA = 1
